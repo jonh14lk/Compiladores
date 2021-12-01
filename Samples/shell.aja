@@ -1,0 +1,38 @@
+int n;
+list (itg) l;
+
+function void shellsort {} [
+    itg h = 1;
+    while {h < n} [
+    	h = h * 3 + 1;
+    ]
+    h = h / 3;
+    itg temp, j;
+    while {h > 0} [
+    	for {i = h; i < n; i++} [
+        	temp = l(i);
+            j = i;
+            while {j >= h and l(j - h) > temp} [
+            	l(j) = l(j - h);
+                j = j - h;
+            ]
+            l(j) = temp ;
+        ]
+        h = h / 2 ;
+    ]
+] 
+
+function void main {} [
+    itg i;
+    read{n};
+    for {i ; 0; n} [
+        itg x;
+        read{x};
+        l.append{x};
+    ]
+    shellsort{};
+    for {i = 0; i < n; i++} [
+        write{l(i)};
+        write{" "};
+    ]
+]

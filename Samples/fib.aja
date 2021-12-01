@@ -1,0 +1,19 @@
+function void main {} [
+    itg n;
+    read{n};
+    itg a = 0;
+    itg b = 1;
+    if {n >= 1} [
+        write{a};
+    ]
+    if {n >= 2} [
+        write{b};
+    ]
+    while {n >= 3} [
+        itg x = a + b;
+        a = b;
+        b = x;
+        write{b};
+        n--;
+    ]
+]
