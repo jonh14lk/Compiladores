@@ -1,0 +1,22 @@
+
+0 function
+0 void
+0 main
+0 {
+0 }
+0 [
+
+0 str
+0 msg
+0 =
+0 "hello
+0 world"
+0 ;
+
+0 write
+0 {
+0 msg
+0 }
+0 ;
+
+0 ]
