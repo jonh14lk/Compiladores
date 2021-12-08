@@ -1,0 +1,9 @@
+function void main{} [
+    bool a= true;
+    dbl x=2.94 + 3;
+    itg x= 3 + 5;
+    itg y =1;
+    str message        =    "Hello world"
+    char c='a'
+    int ll = x^y;
+]
