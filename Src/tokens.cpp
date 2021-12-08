@@ -15,7 +15,7 @@ void buildMap()
     tokenId["dbl"] = 5;
     tokenId["chr"] = 6;
     tokenId["bool"] = 7;
-    tokenId["string"] = 8;
+    tokenId["str"] = 8;
     tokenId["list"] = 9;
     tokenId["{"] = 10;
     tokenId["}"] = 11;

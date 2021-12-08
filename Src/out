@@ -34,7 +34,7 @@
 (-1, ) 1
 (24, SignalSemiColon) ;
 
-(0, ) str
+(8, TypeString) str
 (0, ) message
 (40, AtributionEqual) =
 (-1, ) "Hello world"
