@@ -1,0 +1,55 @@
+
+(1, DefFunction) function
+(3, TypeVoid) void
+(2, ReservedMain) main
+(10, OpenBrace) {
+(11, CloseBrace) }
+(12, OpenBrack) [
+
+(7, TypeBoolean) bool
+(0, ) a
+(40, AtributionEqual) =
+(-1, ) true
+(24, SignalSemiColon) ;
+
+(5, TypeDouble) dbl
+(0, ) x
+(40, AtributionEqual) =
+(-1, ) 2.94
+(26, OperationAdd) +
+(-1, ) 3
+(24, SignalSemiColon) ;
+
+(4, TypeInteger) itg
+(0, ) x
+(40, AtributionEqual) =
+(-1, ) 3
+(26, OperationAdd) +
+(-1, ) 5
+(24, SignalSemiColon) ;
+
+(4, TypeInteger) itg
+(0, ) y
+(40, AtributionEqual) =
+(-1, ) 1
+(24, SignalSemiColon) ;
+
+(0, ) str
+(0, ) message
+(40, AtributionEqual) =
+(-1, ) "Hello world"
+
+(0, ) char
+(0, ) c
+(40, AtributionEqual) =
+(-1, ) 'a'
+
+(0, ) int
+(0, ) ll
+(40, AtributionEqual) =
+(0, ) x
+(34, OperationXor) ^
+(0, ) y
+(24, SignalSemiColon) ;
+
+(13, CloseBrack) ]

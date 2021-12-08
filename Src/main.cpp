@@ -4,12 +4,120 @@
 #include <cstring>
 #include <map>
 
+// id do token -> identificador do token
+std::map<std::string, int> tokenId;
+// token -> id do token
+std::map<int, std::string> token;
+
+void buildMap()
+{
+    tokenId["function"] = 1;
+    tokenId["main"] = 2;
+    tokenId["void"] = 3;
+    tokenId["itg"] = 4;
+    tokenId["dbl"] = 5;
+    tokenId["chr"] = 6;
+    tokenId["bool"] = 7;
+    tokenId["string"] = 8;
+    tokenId["list"] = 9;
+    tokenId["{"] = 10;
+    tokenId["}"] = 11;
+    tokenId["["] = 12;
+    tokenId["]"] = 13;
+    tokenId["("] = 14;
+    tokenId[")"] = 15;
+    tokenId["\\n"] = 16;
+    tokenId["if"] = 17;
+    tokenId["elseif"] = 18;
+    tokenId["else"] = 19;
+    tokenId["for"] = 20;
+    tokenId["while"] = 21;
+    tokenId["write"] = 22;
+    tokenId["read"] = 23;
+    tokenId[";"] = 24;
+    tokenId[","] = 25;
+    tokenId["+"] = 26;
+    tokenId["-"] = 27;
+    tokenId["*"] = 28;
+    tokenId["/"] = 29;
+    tokenId["++"] = 30;
+    tokenId["--"] = 31;
+    tokenId["+="] = 32;
+    tokenId["!"] = 33;
+    tokenId["^"] = 34;
+    tokenId["|"] = 35;
+    tokenId["&"] = 36;
+    tokenId["and"] = 37;
+    tokenId["or"] = 38;
+    tokenId["not"] = 39;
+    tokenId["="] = 40;
+    tokenId["=="] = 41;
+    tokenId["!="] = 42;
+    tokenId[">"] = 43;
+    tokenId["<"] = 44;
+    tokenId[">="] = 45;
+    tokenId["<="] = 46;
+    tokenId["false"] = 47;
+    tokenId["true"] = 48;
+    tokenId["return"] = 49;
+
+    token[1] = "DefFunction";
+    token[2] = "ReservedMain";
+    token[3] = "TypeVoid";
+    token[4] = "TypeInteger";
+    token[5] = "TypeDouble";
+    token[6] = "TypeChar";
+    token[7] = "TypeBoolean";
+    token[8] = "TypeString";
+    token[9] = "TypeList";
+    token[10] = "OpenBrace";
+    token[11] = "CloseBrace";
+    token[12] = "OpenBrack";
+    token[13] = "CloseBrack";
+    token[14] = "OpenPar";
+    token[15] = "ClosePar";
+    token[16] = "EndLine";
+    token[17] = "ReservedIf";
+    token[18] = "ReservedElseIf";
+    token[19] = "ReservedElse";
+    token[20] = "ReservedFor";
+    token[21] = "ReservedWhile";
+    token[22] = "ReservedWrite";
+    token[23] = "ReservedRead";
+    token[24] = "SignalSemiColon";
+    token[25] = "SignalComma";
+    token[26] = "OperationAdd";
+    token[27] = "OperationSub";
+    token[28] = "OperationMult";
+    token[29] = "OperationDiv";
+    token[30] = "OperationInc";
+    token[31] = "OperationDec";
+    token[32] = "OperationConc";
+    token[33] = "OperationNot";
+    token[34] = "OperationXor";
+    token[35] = "OperationOr";
+    token[36] = "OperationAnd";
+    token[37] = "LogicAnd";
+    token[38] = "LogicOr";
+    token[39] = "LogicNot";
+    token[40] = "AtributionEqual";
+    token[41] = "RelationEqual";
+    token[42] = "RelationNotEqual";
+    token[43] = "RelationGreater";
+    token[44] = "RelationLower";
+    token[45] = "RelationGreaterEqual";
+    token[46] = "RelationLowerEqual";
+    token[47] = "BooleanFalse";
+    token[48] = "BooleanTrue";
+    token[49] = "ReservedReturn";
+}
+
 class LexicalAnalyzer {
     private:
     std::ifstream file;
     std::string currentLine;
     std::map<char, bool> canBreak;
-    std::map<std::string, bool> incToken;
+    std::map<std::string, bool> canBreak2;
     int line, row;
 
     public: 
@@ -24,16 +132,33 @@ class LexicalAnalyzer {
         canBreak['['] = true;
         canBreak[']'] = true;
         canBreak[';'] = true;
-        incToken["++"] = true;
-        incToken["--"] = true;
+        canBreak['\"'] = true;
+        canBreak['\''] = true;
+
+        canBreak['+'] = true;
+        canBreak['-'] = true;
+        canBreak['*'] = true;
+        canBreak['/'] = true;
+        canBreak['>'] = true;
+        canBreak['<'] = true;
+        canBreak['='] = true;
+        canBreak['^'] = true;
+        canBreak['|'] = true;
+        canBreak['&'] = true;
+
+        canBreak2["++"] = true;
+        canBreak2["--"] = true;
+        canBreak2["=="] = true;
+        canBreak2["!="] = true;
+        canBreak2[">="] = true;
+        canBreak2["<="] = true;
     }
 
     bool hasToken() {
         if(row == currentLine.size()) {
-            if (getline(file, currentLine)) {
+            if(getline(file, currentLine)) {
                 row = 0;
                 line++;
-                //std::cout << "Line " << line << ": " << currentLine << std::endl;
                 std::cout << std::endl;
                 return hasToken();
             }
@@ -44,7 +169,39 @@ class LexicalAnalyzer {
             row++;
         }
 
-        return (row < currentLine.size());
+        if(row < currentLine.size()) {
+            return true;
+        }
+
+        return hasToken();
+    }
+
+    std::pair<int, std::string> readStringConst() {
+        std::string token = "\"";
+        while(row < currentLine.size()) {
+            token += currentLine[row];
+            row++;
+            if(currentLine[row - 1] == '\"') {
+                break;
+            }
+        }
+        return make_pair(-1, token);
+    }
+
+    std::pair<int, std::string> readCharConst() {
+        std::string token = "\'";
+        while(row < currentLine.size()) {
+            token += currentLine[row];
+            row++;
+            if(currentLine[row - 1] == '\'') {
+                break;
+            }
+        }
+        return make_pair(-1, token);
+    }
+
+    std::pair<int, std::string> readNumberConst(std::string token) {
+        return make_pair(-1, token);
     }
 
     std::pair<int, std::string> nxtToken() {
@@ -54,19 +211,41 @@ class LexicalAnalyzer {
             if (token.size() && canBreak[currentLine[row]]) {
                 break;
             }
-            else if (token.size() && incToken[currentLine.substr(row, 2)]) {
+            else if (token.size() && canBreak2[currentLine.substr(row, 2)]) {
                 break;
             }
 
             token += currentLine[row];
             row++;
 
+            if (currentLine[row - 1] == '\'') {
+                return readCharConst();
+            }
+            if (currentLine[row - 1] == '\"') {
+                return readStringConst();
+            }
+            if(canBreak2[currentLine.substr(row - 1, 2)]) {
+                token += currentLine[row];
+                row++;
+                break;
+            }
             if (canBreak[currentLine[row - 1]]) {
                 break;
             }
         }
 
-        return make_pair(0, token);
+        if (token[0] >= '0' && token[0] <= '9') {
+            return readNumberConst(token);
+        }
+        else if (token == "true" || token == "false") {
+            return make_pair(-1, token);
+        }
+
+        return make_pair(tokenId[token], token);
+    }
+
+    void printToken(std::pair<int, std::string> t) {
+        std::cout << "(" << t.first << ", " << token[t.first] << ") " << t.second << std::endl;
     }
 };
 
@@ -76,11 +255,13 @@ int main (int argc, char *argv[]) {
         return 1;
     }
 
+    buildMap();
+
     std::string filePath = std::string(argv[1]);
     LexicalAnalyzer analyzer(filePath);
-
+    
     while(analyzer.hasToken()) {
         std::pair<int, std::string> t = analyzer.nxtToken();
-        std::cout << t.first << " " << t.second << std::endl;
+        analyzer.printToken(t);
     }
 }
