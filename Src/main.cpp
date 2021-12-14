@@ -11,6 +11,7 @@ std::map<int, std::string> token;
 
 void buildMap()
 {
+    tokenId["Identificator"] = 0;
     tokenId["function"] = 1;
     tokenId["main"] = 2;
     tokenId["void"] = 3;
@@ -60,7 +61,14 @@ void buildMap()
     tokenId["false"] = 47;
     tokenId["true"] = 48;
     tokenId["return"] = 49;
+    tokenId["CharConst"] = 50;
+    tokenId["StringConst"] = 51;
+    tokenId["DoubleConst"] = 52;
+    tokenId["IntConst"] = 53;
+    tokenId["true"] = 54;
+    tokenId["false"] = 54;
 
+    token[0] = "Identificator";
     token[1] = "DefFunction";
     token[2] = "ReservedMain";
     token[3] = "TypeVoid";
@@ -110,18 +118,26 @@ void buildMap()
     token[47] = "BooleanFalse";
     token[48] = "BooleanTrue";
     token[49] = "ReservedReturn";
+    token[50] = "CharConst";
+    token[51] = "StringConst";
+    token[52] = "DoubleConst";
+    token[53] = "IntConst";
+    token[54] = "BooleanConst";
+    token[55] = "BooleanConst";
 }
 
-class LexicalAnalyzer {
-    private:
+class LexicalAnalyzer
+{
+private:
     std::ifstream file;
     std::string currentLine;
     std::map<char, bool> canBreak;
     std::map<std::string, bool> canBreak2;
     int line, row;
 
-    public: 
-    LexicalAnalyzer(std::string filePath) {
+public:
+    LexicalAnalyzer(std::string filePath)
+    {
         file = std::ifstream(filePath);
         line = 0, row = 0;
         currentLine = "";
@@ -131,6 +147,7 @@ class LexicalAnalyzer {
         canBreak[')'] = true;
         canBreak['['] = true;
         canBreak[']'] = true;
+        canBreak[','] = true;
         canBreak[';'] = true;
         canBreak['\"'] = true;
         canBreak['\''] = true;
@@ -154,103 +171,137 @@ class LexicalAnalyzer {
         canBreak2["<="] = true;
     }
 
-    bool hasToken() {
-        if(row == currentLine.size()) {
-            if(getline(file, currentLine)) {
+    bool hasToken()
+    {
+        if (row == currentLine.size())
+        {
+            if (getline(file, currentLine))
+            {
+                // TODO: printar linha!!
                 row = 0;
                 line++;
                 std::cout << std::endl;
                 return hasToken();
             }
             return false;
-        }  
+        }
 
-        while(row < currentLine.size() && (currentLine[row] == '\t' || currentLine[row] == ' ')) {
+        while (row < currentLine.size() && (currentLine[row] == '\t' || currentLine[row] == ' '))
+        {
             row++;
         }
 
-        if(row < currentLine.size()) {
+        if (row < currentLine.size())
+        {
             return true;
         }
 
         return hasToken();
     }
 
-    std::pair<int, std::string> readStringConst() {
+    std::pair<int, std::string> readStringConst()
+    {
         std::string token = "\"";
-        while(row < currentLine.size()) {
+        while (row < currentLine.size())
+        {
             token += currentLine[row];
             row++;
-            if(currentLine[row - 1] == '\"') {
+            if (currentLine[row - 1] == '\"')
+            {
                 break;
             }
         }
-        return make_pair(-1, token);
+        return make_pair(tokenId["StringConst"], token);
     }
 
-    std::pair<int, std::string> readCharConst() {
+    std::pair<int, std::string> readCharConst()
+    {
         std::string token = "\'";
-        while(row < currentLine.size()) {
+        while (row < currentLine.size())
+        {
             token += currentLine[row];
             row++;
-            if(currentLine[row - 1] == '\'') {
+            if (currentLine[row - 1] == '\'')
+            {
                 break;
             }
         }
-        return make_pair(-1, token);
+        return make_pair(tokenId["CharConst"], token);
     }
 
-    std::pair<int, std::string> readNumberConst(std::string token) {
-        return make_pair(-1, token);
+    std::pair<int, std::string> readNumberConst()
+    {
+        std::string token = "";
+        bool has_point = false;
+        while (row < currentLine.size() && ((currentLine[row] >= '0' && currentLine[row] <= '9') || currentLine[row] == '.'))
+        {
+            if (currentLine[row] == '.')
+            {
+                has_point = true;
+            }
+            token += currentLine[row];
+            row++;
+        }
+        int id = (has_point) ? tokenId["DoubleConst"] : tokenId["IntConst"];
+        return make_pair(id, token);
     }
 
-    std::pair<int, std::string> nxtToken() {
+    std::pair<int, std::string> nxtToken()
+    {
         std::string token = "";
 
-        while(row < currentLine.size() && currentLine[row] != '\t' && currentLine[row] != ' ') {
-            if (token.size() && canBreak[currentLine[row]]) {
+        while (row < currentLine.size() && currentLine[row] != '\t' && currentLine[row] != ' ')
+        {
+            if (token.size() && canBreak[currentLine[row]])
+            {
                 break;
             }
-            else if (token.size() && canBreak2[currentLine.substr(row, 2)]) {
+            else if (token.size() && canBreak2[currentLine.substr(row, 2)])
+            {
                 break;
+            }
+            else if (!token.size() && currentLine[row] >= '0' && currentLine[row] <= '9')
+            {
+                return readNumberConst();
             }
 
             token += currentLine[row];
             row++;
 
-            if (currentLine[row - 1] == '\'') {
+            if (currentLine[row - 1] == '\'')
+            {
                 return readCharConst();
             }
-            if (currentLine[row - 1] == '\"') {
+            else if (currentLine[row - 1] == '\"')
+            {
                 return readStringConst();
             }
-            if(canBreak2[currentLine.substr(row - 1, 2)]) {
+            else if (canBreak2[currentLine.substr(row - 1, 2)])
+            {
                 token += currentLine[row];
                 row++;
                 break;
             }
-            if (canBreak[currentLine[row - 1]]) {
+            else if (canBreak[currentLine[row - 1]])
+            {
                 break;
             }
-        }
-
-        if (token[0] >= '0' && token[0] <= '9') {
-            return readNumberConst(token);
-        }
-        else if (token == "true" || token == "false") {
-            return make_pair(-1, token);
         }
 
         return make_pair(tokenId[token], token);
     }
 
-    void printToken(std::pair<int, std::string> t) {
+    void printToken(std::pair<int, std::string> t)
+    {
+        //printf("        [%04d, %04d] (%04d, %10s) {%s}\n", t.line + 1, t.column + 1, t.type, t.getString(t.type, enumToString).c_str(), t.value.c_str());
         std::cout << "(" << t.first << ", " << token[t.first] << ") " << t.second << std::endl;
     }
 };
 
-int main (int argc, char *argv[]) {
-    if(argc <= 1) {
+int main(int argc, char *argv[])
+{
+    if (argc <= 1)
+    {
         std::cout << "No file provided" << std::endl;
         return 1;
     }
@@ -259,8 +310,9 @@ int main (int argc, char *argv[]) {
 
     std::string filePath = std::string(argv[1]);
     LexicalAnalyzer analyzer(filePath);
-    
-    while(analyzer.hasToken()) {
+
+    while (analyzer.hasToken())
+    {
         std::pair<int, std::string> t = analyzer.nxtToken();
         analyzer.printToken(t);
     }
