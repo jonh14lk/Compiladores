@@ -1,4 +1,4 @@
-function itg teste{itg i,dbl d,chr c,bool b} [
+function itg teste{itg i,dbl d,chr c,bool b,str s} [
     return 0;
 ]
 
@@ -7,8 +7,8 @@ function void main{} [
     dbl x=2.94+3;
     itg x= 3 + 5;
     itg y =1;
-    str message        =    "Hello world"
-    chr c='a'
+    str message        =    "Hello world";
+    chr c='a';
     bool b = true;
     bool aaaa23 = false;
     itg id = 0;

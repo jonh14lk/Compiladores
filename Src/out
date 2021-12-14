@@ -14,6 +14,9 @@
 (25, SignalComma) ,
 (7, TypeBoolean) bool
 (0, Identificator) b
+(25, SignalComma) ,
+(8, TypeString) str
+(0, Identificator) s
 (11, CloseBrace) }
 (12, OpenBrack) [
 
@@ -63,11 +66,13 @@
 (0, Identificator) message
 (40, AtributionEqual) =
 (51, StringConst) "Hello world"
+(24, SignalSemiColon) ;
 
 (6, TypeChar) chr
 (0, Identificator) c
 (40, AtributionEqual) =
 (50, CharConst) 'a'
+(24, SignalSemiColon) ;
 
 (7, TypeBoolean) bool
 (0, Identificator) b
