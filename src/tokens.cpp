@@ -1,8 +1,8 @@
 class Token {
 private:
-        // id do token -> identificador do token
-    std::map<std::string, int> tokenId;
         // token -> id do token
+    std::map<std::string, int> tokenId;
+        // id do token -> identificador do token
     std::map<int, std::string> token;
 
     void initTokens() {
@@ -62,6 +62,8 @@ private:
         tokenId["IntConst"] = 53;
         tokenId["true"] = 54;
         tokenId["false"] = 54;
+        tokenId["."] = 55;
+        tokenId["append"] = 56;
 
         token[0] = "Identificator";
         token[1] = "DefFunction";
@@ -118,7 +120,8 @@ private:
         token[52] = "DoubleConst";
         token[53] = "IntConst";
         token[54] = "BooleanConst";
-        token[55] = "BooleanConst";
+        token[55] = "SignalDot";
+        token[56] = "ReservedAppend";
     }
 
 public:

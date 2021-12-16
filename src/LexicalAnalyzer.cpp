@@ -23,6 +23,7 @@ public:
         canBreak[']'] = true;
         canBreak[','] = true;
         canBreak[';'] = true;
+        canBreak['.'] = true;
         canBreak['\"'] = true;
         canBreak['\''] = true;
 

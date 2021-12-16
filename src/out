@@ -1,0 +1,254 @@
+
+DefFunction 1 function
+TypeVoid 3 void
+Identificator 0 shellsort
+OpenBrace 10 {
+TypeInteger 4 itg
+Identificator 0 n
+SignalComma 25 ,
+TypeList 9 list
+OpenPar 14 (
+TypeInteger 4 itg
+ClosePar 15 )
+Identificator 0 l
+CloseBrace 11 }
+OpenBrack 12 [
+
+TypeInteger 4 itg
+Identificator 0 h
+AtributionEqual 40 =
+IntConst 53 1
+SignalSemiColon 24 ;
+
+ReservedWhile 21 while
+OpenBrace 10 {
+Identificator 0 h
+RelationLower 44 <
+Identificator 0 n
+CloseBrace 11 }
+OpenBrack 12 [
+
+Identificator 0 h
+AtributionEqual 40 =
+Identificator 0 h
+OperationMult 28 *
+IntConst 53 3
+OperationAdd 26 +
+IntConst 53 1
+SignalSemiColon 24 ;
+
+CloseBrack 13 ]
+
+Identificator 0 h
+AtributionEqual 40 =
+Identificator 0 h
+OperationDiv 29 /
+IntConst 53 3
+SignalSemiColon 24 ;
+
+TypeInteger 4 itg
+Identificator 0 temp
+SignalComma 25 ,
+Identificator 0 j
+SignalSemiColon 24 ;
+
+ReservedWhile 21 while
+OpenBrace 10 {
+Identificator 0 h
+RelationGreater 43 >
+IntConst 53 0
+CloseBrace 11 }
+OpenBrack 12 [
+
+ReservedFor 20 for
+OpenBrace 10 {
+Identificator 0 i
+AtributionEqual 40 =
+Identificator 0 h
+SignalSemiColon 24 ;
+Identificator 0 i
+RelationLower 44 <
+Identificator 0 n
+SignalSemiColon 24 ;
+Identificator 0 i
+OperationInc 30 ++
+CloseBrace 11 }
+OpenBrack 12 [
+
+Identificator 0 temp
+AtributionEqual 40 =
+Identificator 0 l
+OpenPar 14 (
+Identificator 0 i
+ClosePar 15 )
+SignalSemiColon 24 ;
+
+Identificator 0 j
+AtributionEqual 40 =
+Identificator 0 i
+SignalSemiColon 24 ;
+
+ReservedWhile 21 while
+OpenBrace 10 {
+Identificator 0 j
+RelationGreaterEqual 45 >=
+Identificator 0 h
+LogicAnd 37 and
+Identificator 0 l
+OpenPar 14 (
+Identificator 0 j
+OperationSub 27 -
+Identificator 0 h
+ClosePar 15 )
+RelationGreater 43 >
+Identificator 0 temp
+CloseBrace 11 }
+OpenBrack 12 [
+
+Identificator 0 l
+OpenPar 14 (
+Identificator 0 j
+ClosePar 15 )
+AtributionEqual 40 =
+Identificator 0 l
+OpenPar 14 (
+Identificator 0 j
+OperationSub 27 -
+Identificator 0 h
+ClosePar 15 )
+SignalSemiColon 24 ;
+
+Identificator 0 j
+AtributionEqual 40 =
+Identificator 0 j
+OperationSub 27 -
+Identificator 0 h
+SignalSemiColon 24 ;
+
+CloseBrack 13 ]
+
+Identificator 0 l
+OpenPar 14 (
+Identificator 0 j
+ClosePar 15 )
+AtributionEqual 40 =
+Identificator 0 temp
+SignalSemiColon 24 ;
+
+CloseBrack 13 ]
+
+Identificator 0 h
+AtributionEqual 40 =
+Identificator 0 h
+OperationDiv 29 /
+IntConst 53 2
+SignalSemiColon 24 ;
+
+CloseBrack 13 ]
+
+CloseBrack 13 ]
+
+DefFunction 1 function
+TypeVoid 3 void
+ReservedMain 2 main
+OpenBrace 10 {
+CloseBrace 11 }
+OpenBrack 12 [
+
+TypeInteger 4 itg
+Identificator 0 i
+SignalSemiColon 24 ;
+
+TypeInteger 4 itg
+Identificator 0 n
+SignalSemiColon 24 ;
+
+ReservedRead 23 read
+OpenBrace 10 {
+Identificator 0 n
+CloseBrace 11 }
+SignalSemiColon 24 ;
+
+TypeList 9 list
+OpenPar 14 (
+TypeInteger 4 itg
+ClosePar 15 )
+Identificator 0 l
+SignalSemiColon 24 ;
+
+ReservedFor 20 for
+OpenBrace 10 {
+Identificator 0 i
+AtributionEqual 40 =
+IntConst 53 0
+SignalSemiColon 24 ;
+Identificator 0 i
+RelationLower 44 <
+Identificator 0 n
+SignalSemiColon 24 ;
+Identificator 0 i
+OperationInc 30 ++
+CloseBrace 11 }
+OpenBrack 12 [
+
+TypeInteger 4 itg
+Identificator 0 x
+SignalSemiColon 24 ;
+
+ReservedRead 23 read
+OpenBrace 10 {
+Identificator 0 x
+CloseBrace 11 }
+SignalSemiColon 24 ;
+
+Identificator 0 l
+SignalDot 55 .
+ReservedAppend 56 append
+OpenBrace 10 {
+Identificator 0 x
+CloseBrace 11 }
+SignalSemiColon 24 ;
+
+CloseBrack 13 ]
+
+Identificator 0 shellsort
+OpenBrace 10 {
+Identificator 0 n
+SignalComma 25 ,
+Identificator 0 l
+CloseBrace 11 }
+SignalSemiColon 24 ;
+
+ReservedFor 20 for
+OpenBrace 10 {
+Identificator 0 i
+AtributionEqual 40 =
+IntConst 53 0
+SignalSemiColon 24 ;
+Identificator 0 i
+RelationLower 44 <
+Identificator 0 n
+SignalSemiColon 24 ;
+Identificator 0 i
+OperationInc 30 ++
+CloseBrace 11 }
+OpenBrack 12 [
+
+ReservedWrite 22 write
+OpenBrace 10 {
+Identificator 0 l
+OpenPar 14 (
+Identificator 0 i
+ClosePar 15 )
+CloseBrace 11 }
+SignalSemiColon 24 ;
+
+ReservedWrite 22 write
+OpenBrace 10 {
+StringConst 51 " "
+CloseBrace 11 }
+SignalSemiColon 24 ;
+
+CloseBrack 13 ]
+
+CloseBrack 13 ]
