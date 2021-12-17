@@ -1,7 +1,4 @@
-itg n;
-list (itg) l;
-
-function void shellsort {} [
+function void shellsort {itg n, list (itg) l} [
     itg h = 1;
     while {h < n} [
     	h = h * 3 + 1;
@@ -20,17 +17,18 @@ function void shellsort {} [
         ]
         h = h / 2 ;
     ]
-] 
-
+]
 function void main {} [
     itg i;
+    itg n;
     read{n};
-    for {i ; 0; n} [
+    list (itg) l;
+    for {i = 0; i < n; i++} [
         itg x;
         read{x};
         l.append{x};
     ]
-    shellsort{};
+    shellsort{n, l};
     for {i = 0; i < n; i++} [
         write{l(i)};
         write{" "};

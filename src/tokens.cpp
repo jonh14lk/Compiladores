@@ -1,8 +1,8 @@
 class Token {
 private:
-        // id do token -> identificador do token
-    std::map<std::string, int> tokenId;
         // token -> id do token
+    std::map<std::string, int> tokenId;
+        // id do token -> identificador do token
     std::map<int, std::string> token;
 
     void initTokens() {
@@ -53,15 +53,15 @@ private:
         tokenId["<"] = 44;
         tokenId[">="] = 45;
         tokenId["<="] = 46;
-        tokenId["false"] = 47;
-        tokenId["true"] = 48;
-        tokenId["return"] = 49;
-        tokenId["CharConst"] = 50;
-        tokenId["StringConst"] = 51;
-        tokenId["DoubleConst"] = 52;
-        tokenId["IntConst"] = 53;
-        tokenId["true"] = 54;
-        tokenId["false"] = 54;
+        tokenId["return"] = 47;
+        tokenId["CharConst"] = 48;
+        tokenId["StringConst"] = 49;
+        tokenId["DoubleConst"] = 50;
+        tokenId["IntConst"] = 51;
+        tokenId["true"] = 52;
+        tokenId["false"] = 52;
+        tokenId["."] = 53;
+        tokenId["append"] = 54;
 
         token[0] = "Identificator";
         token[1] = "DefFunction";
@@ -110,15 +110,14 @@ private:
         token[44] = "RelationLower";
         token[45] = "RelationGreaterEqual";
         token[46] = "RelationLowerEqual";
-        token[47] = "BooleanFalse";
-        token[48] = "BooleanTrue";
-        token[49] = "ReservedReturn";
-        token[50] = "CharConst";
-        token[51] = "StringConst";
-        token[52] = "DoubleConst";
-        token[53] = "IntConst";
-        token[54] = "BooleanConst";
-        token[55] = "BooleanConst";
+        token[47] = "ReservedReturn";
+        token[48] = "CharConst";
+        token[49] = "StringConst";
+        token[50] = "DoubleConst";
+        token[51] = "IntConst";
+        token[52] = "BooleanConst";
+        token[53] = "SignalDot";
+        token[54] = "ReservedAppend";
     }
 
 public:
