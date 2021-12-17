@@ -1,4 +1,0 @@
-function void main {} [
-    str msg = "hello world";
-    write{msg};
-]
