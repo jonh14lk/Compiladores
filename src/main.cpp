@@ -12,7 +12,7 @@ int main (int argc, char *argv[]) {
         std::cout << "No file provided" << std::endl;
         return 1;
     }
-
+    
     std::string filePath = std::string(argv[1]);
     LexicalAnalyzer analyzer(filePath);
     
