@@ -1,5 +1,7 @@
 #include "tokens.cpp"
 
+#define DEBUG(msg) std::cout << msg << std::endl;
+
 class LexicalAnalyzer {
 private:
     std::ifstream file;
@@ -8,12 +10,12 @@ private:
     std::map<std::string, bool> canBreak2;
     Token token;
     int line, row;
-
 public: 
     LexicalAnalyzer(std::string filePath) {
         file = std::ifstream(filePath);
         token = Token();
         line = 0, row = 0;
+
         currentLine = "";
         canBreak['{'] = true;
         canBreak['}'] = true;
@@ -44,17 +46,18 @@ public:
         canBreak2["!="] = true;
         canBreak2[">="] = true;
         canBreak2["<="] = true;
+
     }
 
     bool hasToken() {
         if (row == currentLine.size()) {
             if (getline(file, currentLine)) {
-                // TODO: printar linha!!
                 row = 0;
                 line++;
-                std::cout << std::endl;
+                printf("%04d  %s\n", line, currentLine.c_str());
                 return hasToken();
             }
+
             return false;
         }
 
