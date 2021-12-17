@@ -1,4 +1,4 @@
-int n;
+itg n;
 list (itg) l;
 
 function void shellsort {} [
