@@ -99,12 +99,20 @@ public:
     std::pair<int, std::string> readNumberConst() {
         std::string cur_token = "";
         bool has_point = false;
-        while (row < currentLine.size() && ((currentLine[row] >= '0' && currentLine[row] <= '9') || currentLine[row] == '.')) {
-            if (currentLine[row] == '.') {
+        while (row < currentLine.size()) {
+            if (currentLine[row] >= '0' && currentLine[row] <= '9') {
+                cur_token += currentLine[row];
+                row++;
+            } else if (currentLine[row] == '.' && !has_point) {
                 has_point = true;
+                cur_token += currentLine[row];
+                row++;
+            } else if (cur_token.size() == 0 && (currentLine[row] == '+' || currentLine[row] == '-')) {
+                cur_token += currentLine[row];
+                row++;
+            } else {
+                break;
             }
-            cur_token += currentLine[row];
-            row++;
         }
         return make_pair(token.getTokenId(has_point ? "DoubleConst" : "IntConst"), cur_token);
     }
@@ -117,7 +125,9 @@ public:
                 break;
             } else if (cur_token.size() && canBreak2[currentLine.substr(row, 2)]) {
                 break;
-            } else if (!cur_token.size() && currentLine[row] >= '0' && currentLine[row] <= '9') {
+            } else if ((currentLine[row] == '+' || currentLine[row] == '-') && row + 1 < currentLine.size() && currentLine[row + 1] >= '0' && currentLine[row + 1] <= '9') {
+                return readNumberConst();
+            } else if (cur_token.size() == 0 && currentLine[row] >= '0' && currentLine[row] <= '9') {
                 return readNumberConst();
             }
 
