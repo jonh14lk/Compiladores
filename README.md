@@ -27,3 +27,7 @@ Com os comandos acima, a saída será exibida em seu terminal. Para que seja ger
 - Shell Sort: `make shell-outfile`
 
 Com isso, será criado um arquivo na pasta 'Outputs' com o nome do exemplo e a extensão '.out'.
+
+## Exemplo de execução
+
+![Exemplo Hello](Screenshots/hello.png)

@@ -1,0 +1,254 @@
+0001  function void shellsort {itg n, list (itg) l} [
+        [0001, 0001] (0001,          DefFunction) {function}
+        [0001, 0010] (0003,             TypeVoid) {void}
+        [0001, 0015] (0000,        Identificator) {shellsort}
+        [0001, 0025] (0010,            OpenBrace) {{}
+        [0001, 0026] (0004,          TypeInteger) {itg}
+        [0001, 0030] (0000,        Identificator) {n}
+        [0001, 0031] (0025,          SignalComma) {,}
+        [0001, 0033] (0009,             TypeList) {list}
+        [0001, 0038] (0014,              OpenPar) {(}
+        [0001, 0039] (0004,          TypeInteger) {itg}
+        [0001, 0042] (0015,             ClosePar) {)}
+        [0001, 0044] (0000,        Identificator) {l}
+        [0001, 0045] (0011,           CloseBrace) {}}
+        [0001, 0047] (0012,            OpenBrack) {[}
+0002      itg h = 1;
+        [0002, 0005] (0004,          TypeInteger) {itg}
+        [0002, 0009] (0000,        Identificator) {h}
+        [0002, 0011] (0040,      AtributionEqual) {=}
+        [0002, 0013] (0051,             IntConst) {1}
+        [0002, 0014] (0024,      SignalSemiColon) {;}
+0003      while {h < n} [
+        [0003, 0005] (0021,        ReservedWhile) {while}
+        [0003, 0011] (0010,            OpenBrace) {{}
+        [0003, 0012] (0000,        Identificator) {h}
+        [0003, 0014] (0044,        RelationLower) {<}
+        [0003, 0016] (0000,        Identificator) {n}
+        [0003, 0017] (0011,           CloseBrace) {}}
+        [0003, 0019] (0012,            OpenBrack) {[}
+0004      	h = h * 3 + 1;
+        [0004, 0006] (0000,        Identificator) {h}
+        [0004, 0008] (0040,      AtributionEqual) {=}
+        [0004, 0010] (0000,        Identificator) {h}
+        [0004, 0012] (0028,        OperationMult) {*}
+        [0004, 0014] (0051,             IntConst) {3}
+        [0004, 0016] (0026,         OperationAdd) {+}
+        [0004, 0018] (0051,             IntConst) {1}
+        [0004, 0019] (0024,      SignalSemiColon) {;}
+0005      ]
+        [0005, 0005] (0013,           CloseBrack) {]}
+0006      h = h / 3;
+        [0006, 0005] (0000,        Identificator) {h}
+        [0006, 0007] (0040,      AtributionEqual) {=}
+        [0006, 0009] (0000,        Identificator) {h}
+        [0006, 0011] (0029,         OperationDiv) {/}
+        [0006, 0013] (0051,             IntConst) {3}
+        [0006, 0014] (0024,      SignalSemiColon) {;}
+0007      itg temp, j;
+        [0007, 0005] (0004,          TypeInteger) {itg}
+        [0007, 0009] (0000,        Identificator) {temp}
+        [0007, 0013] (0025,          SignalComma) {,}
+        [0007, 0015] (0000,        Identificator) {j}
+        [0007, 0016] (0024,      SignalSemiColon) {;}
+0008      while {h > 0} [
+        [0008, 0005] (0021,        ReservedWhile) {while}
+        [0008, 0011] (0010,            OpenBrace) {{}
+        [0008, 0012] (0000,        Identificator) {h}
+        [0008, 0014] (0043,      RelationGreater) {>}
+        [0008, 0016] (0051,             IntConst) {0}
+        [0008, 0017] (0011,           CloseBrace) {}}
+        [0008, 0019] (0012,            OpenBrack) {[}
+0009      	for {i = h; i < n; i++} [
+        [0009, 0006] (0020,          ReservedFor) {for}
+        [0009, 0010] (0010,            OpenBrace) {{}
+        [0009, 0011] (0000,        Identificator) {i}
+        [0009, 0013] (0040,      AtributionEqual) {=}
+        [0009, 0015] (0000,        Identificator) {h}
+        [0009, 0016] (0024,      SignalSemiColon) {;}
+        [0009, 0018] (0000,        Identificator) {i}
+        [0009, 0020] (0044,        RelationLower) {<}
+        [0009, 0022] (0000,        Identificator) {n}
+        [0009, 0023] (0024,      SignalSemiColon) {;}
+        [0009, 0025] (0000,        Identificator) {i}
+        [0009, 0026] (0030,         OperationInc) {++}
+        [0009, 0028] (0011,           CloseBrace) {}}
+        [0009, 0030] (0012,            OpenBrack) {[}
+0010          	temp = l(i);
+        [0010, 0010] (0000,        Identificator) {temp}
+        [0010, 0015] (0040,      AtributionEqual) {=}
+        [0010, 0017] (0000,        Identificator) {l}
+        [0010, 0018] (0014,              OpenPar) {(}
+        [0010, 0019] (0000,        Identificator) {i}
+        [0010, 0020] (0015,             ClosePar) {)}
+        [0010, 0021] (0024,      SignalSemiColon) {;}
+0011              j = i;
+        [0011, 0013] (0000,        Identificator) {j}
+        [0011, 0015] (0040,      AtributionEqual) {=}
+        [0011, 0017] (0000,        Identificator) {i}
+        [0011, 0018] (0024,      SignalSemiColon) {;}
+0012              while {j >= h and l(j - h) > temp} [
+        [0012, 0013] (0021,        ReservedWhile) {while}
+        [0012, 0019] (0010,            OpenBrace) {{}
+        [0012, 0020] (0000,        Identificator) {j}
+        [0012, 0022] (0045, RelationGreaterEqual) {>=}
+        [0012, 0025] (0000,        Identificator) {h}
+        [0012, 0027] (0037,             LogicAnd) {and}
+        [0012, 0031] (0000,        Identificator) {l}
+        [0012, 0032] (0014,              OpenPar) {(}
+        [0012, 0033] (0000,        Identificator) {j}
+        [0012, 0035] (0027,         OperationSub) {-}
+        [0012, 0037] (0000,        Identificator) {h}
+        [0012, 0038] (0015,             ClosePar) {)}
+        [0012, 0040] (0043,      RelationGreater) {>}
+        [0012, 0042] (0000,        Identificator) {temp}
+        [0012, 0046] (0011,           CloseBrace) {}}
+        [0012, 0048] (0012,            OpenBrack) {[}
+0013              	l(j) = l(j - h);
+        [0013, 0014] (0000,        Identificator) {l}
+        [0013, 0015] (0014,              OpenPar) {(}
+        [0013, 0016] (0000,        Identificator) {j}
+        [0013, 0017] (0015,             ClosePar) {)}
+        [0013, 0019] (0040,      AtributionEqual) {=}
+        [0013, 0021] (0000,        Identificator) {l}
+        [0013, 0022] (0014,              OpenPar) {(}
+        [0013, 0023] (0000,        Identificator) {j}
+        [0013, 0025] (0027,         OperationSub) {-}
+        [0013, 0027] (0000,        Identificator) {h}
+        [0013, 0028] (0015,             ClosePar) {)}
+        [0013, 0029] (0024,      SignalSemiColon) {;}
+0014                  j = j - h;
+        [0014, 0017] (0000,        Identificator) {j}
+        [0014, 0019] (0040,      AtributionEqual) {=}
+        [0014, 0021] (0000,        Identificator) {j}
+        [0014, 0023] (0027,         OperationSub) {-}
+        [0014, 0025] (0000,        Identificator) {h}
+        [0014, 0026] (0024,      SignalSemiColon) {;}
+0015              ]
+        [0015, 0013] (0013,           CloseBrack) {]}
+0016              l(j) = temp ;
+        [0016, 0013] (0000,        Identificator) {l}
+        [0016, 0014] (0014,              OpenPar) {(}
+        [0016, 0015] (0000,        Identificator) {j}
+        [0016, 0016] (0015,             ClosePar) {)}
+        [0016, 0018] (0040,      AtributionEqual) {=}
+        [0016, 0020] (0000,        Identificator) {temp}
+        [0016, 0025] (0024,      SignalSemiColon) {;}
+0017          ]
+        [0017, 0009] (0013,           CloseBrack) {]}
+0018          h = h / 2 ;
+        [0018, 0009] (0000,        Identificator) {h}
+        [0018, 0011] (0040,      AtributionEqual) {=}
+        [0018, 0013] (0000,        Identificator) {h}
+        [0018, 0015] (0029,         OperationDiv) {/}
+        [0018, 0017] (0051,             IntConst) {2}
+        [0018, 0019] (0024,      SignalSemiColon) {;}
+0019      ]
+        [0019, 0005] (0013,           CloseBrack) {]}
+0020  ]
+        [0020, 0001] (0013,           CloseBrack) {]}
+0021  function void main {} [
+        [0021, 0001] (0001,          DefFunction) {function}
+        [0021, 0010] (0003,             TypeVoid) {void}
+        [0021, 0015] (0002,         ReservedMain) {main}
+        [0021, 0020] (0010,            OpenBrace) {{}
+        [0021, 0021] (0011,           CloseBrace) {}}
+        [0021, 0023] (0012,            OpenBrack) {[}
+0022      itg i;
+        [0022, 0005] (0004,          TypeInteger) {itg}
+        [0022, 0009] (0000,        Identificator) {i}
+        [0022, 0010] (0024,      SignalSemiColon) {;}
+0023      itg n;
+        [0023, 0005] (0004,          TypeInteger) {itg}
+        [0023, 0009] (0000,        Identificator) {n}
+        [0023, 0010] (0024,      SignalSemiColon) {;}
+0024      read{n};
+        [0024, 0005] (0023,         ReservedRead) {read}
+        [0024, 0009] (0010,            OpenBrace) {{}
+        [0024, 0010] (0000,        Identificator) {n}
+        [0024, 0011] (0011,           CloseBrace) {}}
+        [0024, 0012] (0024,      SignalSemiColon) {;}
+0025      list (itg) l;
+        [0025, 0005] (0009,             TypeList) {list}
+        [0025, 0010] (0014,              OpenPar) {(}
+        [0025, 0011] (0004,          TypeInteger) {itg}
+        [0025, 0014] (0015,             ClosePar) {)}
+        [0025, 0016] (0000,        Identificator) {l}
+        [0025, 0017] (0024,      SignalSemiColon) {;}
+0026      for {i = 0; i < n; i++} [
+        [0026, 0005] (0020,          ReservedFor) {for}
+        [0026, 0009] (0010,            OpenBrace) {{}
+        [0026, 0010] (0000,        Identificator) {i}
+        [0026, 0012] (0040,      AtributionEqual) {=}
+        [0026, 0014] (0051,             IntConst) {0}
+        [0026, 0015] (0024,      SignalSemiColon) {;}
+        [0026, 0017] (0000,        Identificator) {i}
+        [0026, 0019] (0044,        RelationLower) {<}
+        [0026, 0021] (0000,        Identificator) {n}
+        [0026, 0022] (0024,      SignalSemiColon) {;}
+        [0026, 0024] (0000,        Identificator) {i}
+        [0026, 0025] (0030,         OperationInc) {++}
+        [0026, 0027] (0011,           CloseBrace) {}}
+        [0026, 0029] (0012,            OpenBrack) {[}
+0027          itg x;
+        [0027, 0009] (0004,          TypeInteger) {itg}
+        [0027, 0013] (0000,        Identificator) {x}
+        [0027, 0014] (0024,      SignalSemiColon) {;}
+0028          read{x};
+        [0028, 0009] (0023,         ReservedRead) {read}
+        [0028, 0013] (0010,            OpenBrace) {{}
+        [0028, 0014] (0000,        Identificator) {x}
+        [0028, 0015] (0011,           CloseBrace) {}}
+        [0028, 0016] (0024,      SignalSemiColon) {;}
+0029          l.append{x};
+        [0029, 0009] (0000,        Identificator) {l}
+        [0029, 0010] (0053,            SignalDot) {.}
+        [0029, 0011] (0054,       ReservedAppend) {append}
+        [0029, 0017] (0010,            OpenBrace) {{}
+        [0029, 0018] (0000,        Identificator) {x}
+        [0029, 0019] (0011,           CloseBrace) {}}
+        [0029, 0020] (0024,      SignalSemiColon) {;}
+0030      ]
+        [0030, 0005] (0013,           CloseBrack) {]}
+0031      shellsort{n, l};
+        [0031, 0005] (0000,        Identificator) {shellsort}
+        [0031, 0014] (0010,            OpenBrace) {{}
+        [0031, 0015] (0000,        Identificator) {n}
+        [0031, 0016] (0025,          SignalComma) {,}
+        [0031, 0018] (0000,        Identificator) {l}
+        [0031, 0019] (0011,           CloseBrace) {}}
+        [0031, 0020] (0024,      SignalSemiColon) {;}
+0032      for {i = 0; i < n; i++} [
+        [0032, 0005] (0020,          ReservedFor) {for}
+        [0032, 0009] (0010,            OpenBrace) {{}
+        [0032, 0010] (0000,        Identificator) {i}
+        [0032, 0012] (0040,      AtributionEqual) {=}
+        [0032, 0014] (0051,             IntConst) {0}
+        [0032, 0015] (0024,      SignalSemiColon) {;}
+        [0032, 0017] (0000,        Identificator) {i}
+        [0032, 0019] (0044,        RelationLower) {<}
+        [0032, 0021] (0000,        Identificator) {n}
+        [0032, 0022] (0024,      SignalSemiColon) {;}
+        [0032, 0024] (0000,        Identificator) {i}
+        [0032, 0025] (0030,         OperationInc) {++}
+        [0032, 0027] (0011,           CloseBrace) {}}
+        [0032, 0029] (0012,            OpenBrack) {[}
+0033          write{l(i)};
+        [0033, 0009] (0022,        ReservedWrite) {write}
+        [0033, 0014] (0010,            OpenBrace) {{}
+        [0033, 0015] (0000,        Identificator) {l}
+        [0033, 0016] (0014,              OpenPar) {(}
+        [0033, 0017] (0000,        Identificator) {i}
+        [0033, 0018] (0015,             ClosePar) {)}
+        [0033, 0019] (0011,           CloseBrace) {}}
+        [0033, 0020] (0024,      SignalSemiColon) {;}
+0034          write{" "};
+        [0034, 0009] (0022,        ReservedWrite) {write}
+        [0034, 0014] (0010,            OpenBrace) {{}
+        [0034, 0015] (0049,          StringConst) {" "}
+        [0034, 0018] (0011,           CloseBrace) {}}
+        [0034, 0019] (0024,      SignalSemiColon) {;}
+0035      ]
+        [0035, 0005] (0013,           CloseBrack) {]}
+0036  ]
+        [0036, 0001] (0013,           CloseBrack) {]}
