@@ -9,12 +9,12 @@ private:
     std::map<char, bool> canBreak;
     std::map<std::string, bool> canBreak2;
     Token token;
-    int line, row;
+    int line, row, initial_col;
 public: 
     LexicalAnalyzer(std::string filePath) {
         file = std::ifstream(filePath);
         token = Token();
-        line = 0, row = 0;
+        line = 0, row = 0, initial_col = 0;
 
         currentLine = "";
         canBreak['{'] = true;
@@ -25,7 +25,6 @@ public:
         canBreak[']'] = true;
         canBreak[','] = true;
         canBreak[';'] = true;
-        canBreak['.'] = true;
         canBreak['\"'] = true;
         canBreak['\''] = true;
 
@@ -54,6 +53,7 @@ public:
             if (getline(file, currentLine)) {
                 row = 0;
                 line++;
+                initial_col = 1;
                 printf("%04d  %s\n", line, currentLine.c_str());
                 return hasToken();
             }
@@ -66,6 +66,7 @@ public:
         }
 
         if (row < currentLine.size()) {
+            initial_col = row + 1;
             return true;
         }
 
@@ -98,15 +99,15 @@ public:
 
     std::pair<int, std::string> readNumberConst() {
         std::string cur_token = "";
-        bool has_point = false;
+        bool has_dot = false;
         while (row < currentLine.size() && ((currentLine[row] >= '0' && currentLine[row] <= '9') || currentLine[row] == '.')) {
             if (currentLine[row] == '.') {
-                has_point = true;
+                has_dot = true;
             }
             cur_token += currentLine[row];
             row++;
         }
-        return make_pair(token.getTokenId(has_point ? "DoubleConst" : "IntConst"), cur_token);
+        return make_pair(token.getTokenId(has_dot ? "DoubleConst" : "IntConst"), cur_token);
     }
 
     std::pair<int, std::string> nxtToken() {
@@ -140,9 +141,10 @@ public:
         return make_pair(token.getTokenId(cur_token), cur_token);
     }
 
-    void printToken(std::pair<int, std::string> t) {
-        std::cout << token.getToken(t.first) << " ";
-        std::cout << t.first << " " << t.second << std::endl;
-        // std::cout << "(" << t.first << ", " << token.getTokenId(t.first) << ") " << t.second << std::endl;
+    void printToken(std::pair<int, std::string> cur_token) {
+        printf("        [%04d, %04d] (%04d, %20s) {%s}\n", 
+            line, initial_col, 
+            cur_token.first, token.getToken(cur_token.first).c_str(), 
+            cur_token.second.c_str());
     }
 };

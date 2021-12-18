@@ -1,9 +1,7 @@
 class Token {
 private:
-        // token -> id do token
     std::map<std::string, int> tokenId;
-        // id do token -> identificador do token
-    std::map<int, std::string> token;
+    std::map<int, std::string> tokenIdToStr;
 
     void initTokens() {
         tokenId["Identificator"] = 0;
@@ -63,61 +61,61 @@ private:
         tokenId["."] = 53;
         tokenId["append"] = 54;
 
-        token[0] = "Identificator";
-        token[1] = "DefFunction";
-        token[2] = "ReservedMain";
-        token[3] = "TypeVoid";
-        token[4] = "TypeInteger";
-        token[5] = "TypeDouble";
-        token[6] = "TypeChar";
-        token[7] = "TypeBoolean";
-        token[8] = "TypeString";
-        token[9] = "TypeList";
-        token[10] = "OpenBrace";
-        token[11] = "CloseBrace";
-        token[12] = "OpenBrack";
-        token[13] = "CloseBrack";
-        token[14] = "OpenPar";
-        token[15] = "ClosePar";
-        token[16] = "EndLine";
-        token[17] = "ReservedIf";
-        token[18] = "ReservedElseIf";
-        token[19] = "ReservedElse";
-        token[20] = "ReservedFor";
-        token[21] = "ReservedWhile";
-        token[22] = "ReservedWrite";
-        token[23] = "ReservedRead";
-        token[24] = "SignalSemiColon";
-        token[25] = "SignalComma";
-        token[26] = "OperationAdd";
-        token[27] = "OperationSub";
-        token[28] = "OperationMult";
-        token[29] = "OperationDiv";
-        token[30] = "OperationInc";
-        token[31] = "OperationDec";
-        token[32] = "OperationConc";
-        token[33] = "OperationNot";
-        token[34] = "OperationXor";
-        token[35] = "OperationOr";
-        token[36] = "OperationAnd";
-        token[37] = "LogicAnd";
-        token[38] = "LogicOr";
-        token[39] = "LogicNot";
-        token[40] = "AtributionEqual";
-        token[41] = "RelationEqual";
-        token[42] = "RelationNotEqual";
-        token[43] = "RelationGreater";
-        token[44] = "RelationLower";
-        token[45] = "RelationGreaterEqual";
-        token[46] = "RelationLowerEqual";
-        token[47] = "ReservedReturn";
-        token[48] = "CharConst";
-        token[49] = "StringConst";
-        token[50] = "DoubleConst";
-        token[51] = "IntConst";
-        token[52] = "BooleanConst";
-        token[53] = "SignalDot";
-        token[54] = "ReservedAppend";
+        tokenIdToStr[0] = "Identificator";
+        tokenIdToStr[1] = "DefFunction";
+        tokenIdToStr[2] = "ReservedMain";
+        tokenIdToStr[3] = "TypeVoid";
+        tokenIdToStr[4] = "TypeInteger";
+        tokenIdToStr[5] = "TypeDouble";
+        tokenIdToStr[6] = "TypeChar";
+        tokenIdToStr[7] = "TypeBoolean";
+        tokenIdToStr[8] = "TypeString";
+        tokenIdToStr[9] = "TypeList";
+        tokenIdToStr[10] = "OpenBrace";
+        tokenIdToStr[11] = "CloseBrace";
+        tokenIdToStr[12] = "OpenBrack";
+        tokenIdToStr[13] = "CloseBrack";
+        tokenIdToStr[14] = "OpenPar";
+        tokenIdToStr[15] = "ClosePar";
+        tokenIdToStr[16] = "EndLine";
+        tokenIdToStr[17] = "ReservedIf";
+        tokenIdToStr[18] = "ReservedElseIf";
+        tokenIdToStr[19] = "ReservedElse";
+        tokenIdToStr[20] = "ReservedFor";
+        tokenIdToStr[21] = "ReservedWhile";
+        tokenIdToStr[22] = "ReservedWrite";
+        tokenIdToStr[23] = "ReservedRead";
+        tokenIdToStr[24] = "SignalSemiColon";
+        tokenIdToStr[25] = "SignalComma";
+        tokenIdToStr[26] = "OperationAdd";
+        tokenIdToStr[27] = "OperationSub";
+        tokenIdToStr[28] = "OperationMult";
+        tokenIdToStr[29] = "OperationDiv";
+        tokenIdToStr[30] = "OperationInc";
+        tokenIdToStr[31] = "OperationDec";
+        tokenIdToStr[32] = "OperationConc";
+        tokenIdToStr[33] = "OperationNot";
+        tokenIdToStr[34] = "OperationXor";
+        tokenIdToStr[35] = "OperationOr";
+        tokenIdToStr[36] = "OperationAnd";
+        tokenIdToStr[37] = "LogicAnd";
+        tokenIdToStr[38] = "LogicOr";
+        tokenIdToStr[39] = "LogicNot";
+        tokenIdToStr[40] = "AtributionEqual";
+        tokenIdToStr[41] = "RelationEqual";
+        tokenIdToStr[42] = "RelationNotEqual";
+        tokenIdToStr[43] = "RelationGreater";
+        tokenIdToStr[44] = "RelationLower";
+        tokenIdToStr[45] = "RelationGreaterEqual";
+        tokenIdToStr[46] = "RelationLowerEqual";
+        tokenIdToStr[47] = "ReservedReturn";
+        tokenIdToStr[48] = "CharConst";
+        tokenIdToStr[49] = "StringConst";
+        tokenIdToStr[50] = "DoubleConst";
+        tokenIdToStr[51] = "IntConst";
+        tokenIdToStr[52] = "BooleanConst";
+        tokenIdToStr[53] = "SignalDot";
+        tokenIdToStr[54] = "ReservedAppend";
     }
 
 public:
@@ -125,12 +123,12 @@ public:
         this->initTokens();
     }
 
-    int getTokenId(std::string word) {
-        return this->tokenId[word];
+    int getTokenId(std::string token) {
+        return this->tokenId[token];
     }
 
     std::string getToken(int tokenId) {
-        return this->token[tokenId];
+        return this->tokenIdToStr[tokenId];
     }
 
 };
