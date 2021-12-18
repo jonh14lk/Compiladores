@@ -52,10 +52,10 @@ private:
         tokenId[">="] = 45;
         tokenId["<="] = 46;
         tokenId["return"] = 47;
-        tokenId["CharConst"] = 48;
-        tokenId["StringConst"] = 49;
-        tokenId["DoubleConst"] = 50;
-        tokenId["IntConst"] = 51;
+        tokenId["_CharConst"] = 48;
+        tokenId["_StringConst"] = 49;
+        tokenId["_DoubleConst"] = 50;
+        tokenId["_IntConst"] = 51;
         tokenId["true"] = 52;
         tokenId["false"] = 52;
         tokenId["."] = 53;

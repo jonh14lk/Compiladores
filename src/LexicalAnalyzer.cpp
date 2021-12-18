@@ -6,8 +6,8 @@ class LexicalAnalyzer {
 private:
     std::ifstream file;
     std::string currentLine;
-    std::map<char, bool> canBreak;
-    std::map<std::string, bool> canBreak2;
+    std::map<char, bool> canBreakChar;
+    std::map<std::string, bool> canBreakCharStr;
     Token token;
     int line, row, initial_col;
 public: 
@@ -17,34 +17,35 @@ public:
         line = 0, row = 0, initial_col = 0;
 
         currentLine = "";
-        canBreak['{'] = true;
-        canBreak['}'] = true;
-        canBreak['('] = true;
-        canBreak[')'] = true;
-        canBreak['['] = true;
-        canBreak[']'] = true;
-        canBreak[','] = true;
-        canBreak[';'] = true;
-        canBreak['\"'] = true;
-        canBreak['\''] = true;
+        canBreakChar['{'] = true;
+        canBreakChar['}'] = true;
+        canBreakChar['('] = true;
+        canBreakChar[')'] = true;
+        canBreakChar['['] = true;
+        canBreakChar[']'] = true;
+        canBreakChar[','] = true;
+        canBreakChar[';'] = true;
+        canBreakChar['.'] = true;
+        canBreakChar['\"'] = true;
+        canBreakChar['\''] = true;
 
-        canBreak['+'] = true;
-        canBreak['-'] = true;
-        canBreak['*'] = true;
-        canBreak['/'] = true;
-        canBreak['>'] = true;
-        canBreak['<'] = true;
-        canBreak['='] = true;
-        canBreak['^'] = true;
-        canBreak['|'] = true;
-        canBreak['&'] = true;
+        canBreakChar['+'] = true;
+        canBreakChar['-'] = true;
+        canBreakChar['*'] = true;
+        canBreakChar['/'] = true;
+        canBreakChar['>'] = true;
+        canBreakChar['<'] = true;
+        canBreakChar['='] = true;
+        canBreakChar['^'] = true;
+        canBreakChar['|'] = true;
+        canBreakChar['&'] = true;
 
-        canBreak2["++"] = true;
-        canBreak2["--"] = true;
-        canBreak2["=="] = true;
-        canBreak2["!="] = true;
-        canBreak2[">="] = true;
-        canBreak2["<="] = true;
+        canBreakCharStr["++"] = true;
+        canBreakCharStr["--"] = true;
+        canBreakCharStr["=="] = true;
+        canBreakCharStr["!="] = true;
+        canBreakCharStr[">="] = true;
+        canBreakCharStr["<="] = true;
 
     }
 
@@ -82,7 +83,7 @@ public:
                 break;
             }
         }
-        return make_pair(token.getTokenId("StringConst"), cur_token);
+        return make_pair(token.getTokenId("_StringConst"), cur_token);
     }
 
     std::pair<int, std::string> readCharConst() {
@@ -94,7 +95,7 @@ public:
                 break;
             }
         }
-        return make_pair(token.getTokenId("CharConst"), cur_token);
+        return make_pair(token.getTokenId("_CharConst"), cur_token);
     }
 
     std::pair<int, std::string> readNumberConst() {
@@ -115,16 +116,16 @@ public:
                 break;
             }
         }
-        return make_pair(token.getTokenId(has_dot ? "DoubleConst" : "IntConst"), cur_token);
+        return make_pair(token.getTokenId(has_dot ? "_DoubleConst" : "_IntConst"), cur_token);
     }
 
     std::pair<int, std::string> nxtToken() {
         std::string cur_token = "";
 
         while (row < currentLine.size() && currentLine[row] != '\t' && currentLine[row] != ' ') {
-            if (cur_token.size() && canBreak[currentLine[row]]) {
+            if (cur_token.size() && canBreakChar[currentLine[row]]) {
                 break;
-            } else if (cur_token.size() && canBreak2[currentLine.substr(row, 2)]) {
+            } else if (cur_token.size() && canBreakCharStr[currentLine.substr(row, 2)]) {
                 break;
             } else if ((currentLine[row] == '+' || currentLine[row] == '-') &&
                 row + 1 < currentLine.size() && currentLine[row + 1] >= '0' && currentLine[row + 1] <= '9') {
@@ -140,11 +141,11 @@ public:
                 return readCharConst();
             } else if (currentLine[row - 1] == '\"'){
                 return readStringConst();
-            } else if (canBreak2[currentLine.substr(row - 1, 2)]) {
+            } else if (canBreakCharStr[currentLine.substr(row - 1, 2)]) {
                 cur_token += currentLine[row];
                 row++;
                 break;
-            } else if (canBreak[currentLine[row - 1]]) {
+            } else if (canBreakChar[currentLine[row - 1]]) {
                 break;
             }
         }
