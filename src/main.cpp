@@ -17,7 +17,7 @@ int main (int argc, char *argv[]) {
     LexicalAnalyzer analyzer(filePath);
     
     while(analyzer.hasToken()) {
-        std::pair<int, std::string> t = analyzer.nxtToken();
+        std::pair<Token, std::string> t = analyzer.nxtToken();
         analyzer.printToken(t);
     }
 }

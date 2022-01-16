@@ -1,3 +1,5 @@
+#include <unordered_map>
+#include "token.cpp"
 #include "tokens.cpp"
 
 #define DEBUG(msg) std::cout << msg << std::endl;
@@ -6,53 +8,53 @@ class LexicalAnalyzer {
 private:
     std::ifstream file;
     std::string currentLine;
-    std::map<char, bool> canBreakChar;
-    std::map<std::string, bool> canBreakCharStr;
-    Token token;
-    int line, row, initial_col;
+    std::unordered_map<char, Token> canBreakChar;
+    std::unordered_map<std::string, Token> canBreakStr;
+    TokenClassifier tokenClassifier;
+    int line, column, initial_col;
 public: 
     LexicalAnalyzer(std::string filePath) {
         file = std::ifstream(filePath);
-        token = Token();
-        line = 0, row = 0, initial_col = 0;
+        tokenClassifier = TokenClassifier();
+        line = 0, column = 0, initial_col = 0;
 
         currentLine = "";
-        canBreakChar['{'] = true;
-        canBreakChar['}'] = true;
-        canBreakChar['('] = true;
-        canBreakChar[')'] = true;
-        canBreakChar['['] = true;
-        canBreakChar[']'] = true;
-        canBreakChar[','] = true;
-        canBreakChar[';'] = true;
-        canBreakChar['.'] = true;
-        canBreakChar['\"'] = true;
-        canBreakChar['\''] = true;
+        canBreakChar['{'] = Token::OpenBrace;
+        canBreakChar['}'] = Token::CloseBrace;
+        canBreakChar['('] = Token::OpenPar;
+        canBreakChar[')'] = Token::ClosePar;
+        canBreakChar['['] = Token::OpenBrack;
+        canBreakChar[']'] = Token::CloseBrack;
+        canBreakChar[','] = Token::SignalComma;
+        canBreakChar[';'] = Token::SignalSemiColon;
+        canBreakChar['.'] = Token::SignalDot;
+        canBreakChar['\"'] = Token::Unknown;
+        canBreakChar['\''] = Token::Unknown;
 
-        canBreakChar['+'] = true;
-        canBreakChar['-'] = true;
-        canBreakChar['*'] = true;
-        canBreakChar['/'] = true;
-        canBreakChar['>'] = true;
-        canBreakChar['<'] = true;
-        canBreakChar['='] = true;
-        canBreakChar['^'] = true;
-        canBreakChar['|'] = true;
-        canBreakChar['&'] = true;
+        canBreakChar['+'] = Token::OperationAdd;
+        canBreakChar['-'] = Token::OperationSub;
+        canBreakChar['*'] = Token::OperationMult;
+        canBreakChar['/'] = Token::OperationSub;
+        canBreakChar['>'] = Token::RelationGreater;
+        canBreakChar['<'] = Token::RelationLower;
+        canBreakChar['='] = Token::AtributionEqual;
+        canBreakChar['^'] = Token::OperationXor;
+        canBreakChar['|'] = Token::OperationOr;
+        canBreakChar['&'] = Token::OperationAnd;
 
-        canBreakCharStr["++"] = true;
-        canBreakCharStr["--"] = true;
-        canBreakCharStr["=="] = true;
-        canBreakCharStr["!="] = true;
-        canBreakCharStr[">="] = true;
-        canBreakCharStr["<="] = true;
+        canBreakStr["++"] = Token::OperationInc;
+        canBreakStr["--"] = Token::OperationConc;
+        canBreakStr["=="] = Token::RelationEqual;
+        canBreakStr["!="] = Token::RelationNotEqual;
+        canBreakStr[">="] = Token::RelationGreaterEqual;
+        canBreakStr["<="] = Token::RelationLowerEqual;
 
     }
 
     bool hasToken() {
-        if (row == currentLine.size()) {
+        if (column == currentLine.size()) {
             if (getline(file, currentLine)) {
-                row = 0;
+                column = 0;
                 line++;
                 initial_col = 1;
                 printf("%04d  %s\n", line, currentLine.c_str());
@@ -62,101 +64,105 @@ public:
             return false;
         }
 
-        while (row < currentLine.size() && (currentLine[row] == '\t' || currentLine[row] == ' ')) {
-            row++;
+        while (column < currentLine.size() && (currentLine[column] == '\t' || currentLine[column] == ' ')) {
+            column++;
         }
 
-        if (row < currentLine.size()) {
-            initial_col = row + 1;
+        if (column < currentLine.size()) {
+            initial_col = column + 1;
             return true;
         }
 
         return hasToken();
     }
 
-    std::pair<int, std::string> readStringConst() {
+    std::pair<Token, std::string> readStringConst() {
         std::string cur_token = "\"";
-        while (row < currentLine.size()) {
-            cur_token += currentLine[row];
-            row++;
-            if (currentLine[row - 1] == '\"') {
+        while (column < currentLine.size()) {
+            cur_token += currentLine[column];
+            column++;
+            if (currentLine[column - 1] == '\"') {
                 break;
             }
         }
-        return make_pair(token.getTokenId("_StringConst"), cur_token);
+        return make_pair(Token::StringConst, cur_token);
     }
 
-    std::pair<int, std::string> readCharConst() {
+    std::pair<Token, std::string> readCharConst() {
         std::string cur_token = "\'";
-        while (row < currentLine.size()) {
-            cur_token += currentLine[row];
-            row++;
-            if (currentLine[row - 1] == '\'') {
+        while (column < currentLine.size()) {
+            cur_token += currentLine[column];
+            column++;
+            if (currentLine[column - 1] == '\'') {
                 break;
             }
         }
-        return make_pair(token.getTokenId("_CharConst"), cur_token);
+        return make_pair(Token::CharConst, cur_token);
     }
 
-    std::pair<int, std::string> readNumberConst() {
+    std::pair<Token, std::string> readNumberConst() {
         std::string cur_token = "";
         bool has_dot = false;
-        while (row < currentLine.size()) {
-            if (currentLine[row] >= '0' && currentLine[row] <= '9') {
-                cur_token += currentLine[row];
-                row++;
-            } else if (currentLine[row] == '.' && !has_dot) {
+        while (column < currentLine.size()) {
+            if (currentLine[column] >= '0' && currentLine[column] <= '9') {
+                cur_token += currentLine[column];
+                column++;
+            } else if (currentLine[column] == '.' && !has_dot) {
                 has_dot = true;
-                cur_token += currentLine[row];
-                row++;
-            } else if (cur_token.size() == 0 && (currentLine[row] == '+' || currentLine[row] == '-')) {
-                cur_token += currentLine[row];
-                row++;
+                cur_token += currentLine[column];
+                column++;
+            } else if (cur_token.size() == 0 && (currentLine[column] == '+' || currentLine[column] == '-')) {
+                cur_token += currentLine[column];
+                column++;
             } else {
                 break;
             }
         }
-        return make_pair(token.getTokenId(has_dot ? "_DoubleConst" : "_IntConst"), cur_token);
+        return make_pair(has_dot ? Token::DoubleConst : Token::IntConst, cur_token);
     }
 
-    std::pair<int, std::string> nxtToken() {
+    std::pair<Token, std::string> nxtToken() {
         std::string cur_token = "";
-
-        while (row < currentLine.size() && currentLine[row] != '\t' && currentLine[row] != ' ') {
-            if (cur_token.size() && canBreakChar[currentLine[row]]) {
-                break;
-            } else if (cur_token.size() && canBreakCharStr[currentLine.substr(row, 2)]) {
-                break;
-            } else if ((currentLine[row] == '+' || currentLine[row] == '-') &&
-                row + 1 < currentLine.size() && currentLine[row + 1] >= '0' && currentLine[row + 1] <= '9') {
+        Token cur_token_id = Token::Identificator;
+        while (column < currentLine.size() && currentLine[column] != '\t' && currentLine[column] != ' ') {
+            if (cur_token.size() && canBreakChar[currentLine[column]]) {
+                cur_token_id = canBreakChar[currentLine[column]];
+                return make_pair(cur_token_id, cur_token);
+            } else if (cur_token.size() && canBreakStr[currentLine.substr(column, 2)]) {
+                cur_token_id = canBreakStr[currentLine.substr(column, 2)];
+                return make_pair(cur_token_id, cur_token);
+            } else if ((currentLine[column] == '+' || currentLine[column] == '-') &&
+                column + 1 < currentLine.size() && currentLine[column + 1] >= '0' && currentLine[column + 1] <= '9') {
                 return readNumberConst();
-            } else if (cur_token.size() == 0 && currentLine[row] >= '0' && currentLine[row] <= '9') {
+            } else if (cur_token.size() == 0 && currentLine[column] >= '0' && currentLine[column] <= '9') {
                 return readNumberConst();
             }
 
-            cur_token += currentLine[row];
-            row++;
-
-            if (currentLine[row - 1] == '\'') {
+            cur_token += currentLine[column];
+            column++;
+            std::cout << "cur_token: " << cur_token << std::endl;
+            if (currentLine[column - 1] == '\'') {
                 return readCharConst();
-            } else if (currentLine[row - 1] == '\"'){
+            } else if (currentLine[column - 1] == '\"'){
                 return readStringConst();
-            } else if (canBreakCharStr[currentLine.substr(row - 1, 2)]) {
-                cur_token += currentLine[row];
-                row++;
-                break;
-            } else if (canBreakChar[currentLine[row - 1]]) {
-                break;
+            } else if (canBreakStr[currentLine.substr(column - 1, 2)]) {
+                cur_token += currentLine[column];
+                column++;
+                cur_token_id = canBreakStr[currentLine.substr(column, 2)];
+                return make_pair(cur_token_id, cur_token);
+            } else if (canBreakChar[currentLine[column - 1]]) {
+                cur_token_id = canBreakChar[currentLine[column - 1]];
+                return make_pair(cur_token_id, cur_token);
             }
         }
-
-        return make_pair(token.getTokenId(cur_token), cur_token);
+        printf("cur_token: %s\n", cur_token);
+        return make_pair(tokenClassifier.classify(cur_token), cur_token);
     }
 
-    void printToken(std::pair<int, std::string> cur_token) {
+    void printToken(std::pair<Token, std::string> cur_token) {
         printf("        [%04d, %04d] (%04d, %20s) {%s}\n", 
             line, initial_col, 
-            cur_token.first, token.getToken(cur_token.first).c_str(), 
+            cur_token.first, tokenClassifier.getToken(cur_token.first).c_str(), 
             cur_token.second.c_str());
     }
 };

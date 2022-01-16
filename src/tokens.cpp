@@ -1,134 +1,97 @@
-class Token {
+class TokenClassifier {
 private:
-    std::map<std::string, int> tokenId;
-    std::map<int, std::string> tokenIdToStr;
+    std::unordered_map<int, std::string> tokenIdToStr;
 
     void initTokens() {
-        tokenId["Identificator"] = 0;
-        tokenId["function"] = 1;
-        tokenId["main"] = 2;
-        tokenId["void"] = 3;
-        tokenId["itg"] = 4;
-        tokenId["dbl"] = 5;
-        tokenId["chr"] = 6;
-        tokenId["bool"] = 7;
-        tokenId["str"] = 8;
-        tokenId["list"] = 9;
-        tokenId["{"] = 10;
-        tokenId["}"] = 11;
-        tokenId["["] = 12;
-        tokenId["]"] = 13;
-        tokenId["("] = 14;
-        tokenId[")"] = 15;
-        tokenId["\\n"] = 16;
-        tokenId["if"] = 17;
-        tokenId["elseif"] = 18;
-        tokenId["else"] = 19;
-        tokenId["for"] = 20;
-        tokenId["while"] = 21;
-        tokenId["write"] = 22;
-        tokenId["read"] = 23;
-        tokenId[";"] = 24;
-        tokenId[","] = 25;
-        tokenId["+"] = 26;
-        tokenId["-"] = 27;
-        tokenId["*"] = 28;
-        tokenId["/"] = 29;
-        tokenId["++"] = 30;
-        tokenId["--"] = 31;
-        tokenId["+="] = 32;
-        tokenId["!"] = 33;
-        tokenId["^"] = 34;
-        tokenId["|"] = 35;
-        tokenId["&"] = 36;
-        tokenId["and"] = 37;
-        tokenId["or"] = 38;
-        tokenId["not"] = 39;
-        tokenId["="] = 40;
-        tokenId["=="] = 41;
-        tokenId["!="] = 42;
-        tokenId[">"] = 43;
-        tokenId["<"] = 44;
-        tokenId[">="] = 45;
-        tokenId["<="] = 46;
-        tokenId["return"] = 47;
-        tokenId["_CharConst"] = 48;
-        tokenId["_StringConst"] = 49;
-        tokenId["_DoubleConst"] = 50;
-        tokenId["_IntConst"] = 51;
-        tokenId["true"] = 52;
-        tokenId["false"] = 52;
-        tokenId["."] = 53;
-        tokenId["append"] = 54;
-
-        tokenIdToStr[0] = "Identificator";
-        tokenIdToStr[1] = "DefFunction";
-        tokenIdToStr[2] = "ReservedMain";
-        tokenIdToStr[3] = "TypeVoid";
-        tokenIdToStr[4] = "TypeInteger";
-        tokenIdToStr[5] = "TypeDouble";
-        tokenIdToStr[6] = "TypeChar";
-        tokenIdToStr[7] = "TypeBoolean";
-        tokenIdToStr[8] = "TypeString";
-        tokenIdToStr[9] = "TypeList";
-        tokenIdToStr[10] = "OpenBrace";
-        tokenIdToStr[11] = "CloseBrace";
-        tokenIdToStr[12] = "OpenBrack";
-        tokenIdToStr[13] = "CloseBrack";
-        tokenIdToStr[14] = "OpenPar";
-        tokenIdToStr[15] = "ClosePar";
-        tokenIdToStr[16] = "EndLine";
-        tokenIdToStr[17] = "ReservedIf";
-        tokenIdToStr[18] = "ReservedElseIf";
-        tokenIdToStr[19] = "ReservedElse";
-        tokenIdToStr[20] = "ReservedFor";
-        tokenIdToStr[21] = "ReservedWhile";
-        tokenIdToStr[22] = "ReservedWrite";
-        tokenIdToStr[23] = "ReservedRead";
-        tokenIdToStr[24] = "SignalSemiColon";
-        tokenIdToStr[25] = "SignalComma";
-        tokenIdToStr[26] = "OperationAdd";
-        tokenIdToStr[27] = "OperationSub";
-        tokenIdToStr[28] = "OperationMult";
-        tokenIdToStr[29] = "OperationDiv";
-        tokenIdToStr[30] = "OperationInc";
-        tokenIdToStr[31] = "OperationDec";
-        tokenIdToStr[32] = "OperationConc";
-        tokenIdToStr[33] = "OperationNot";
-        tokenIdToStr[34] = "OperationXor";
-        tokenIdToStr[35] = "OperationOr";
-        tokenIdToStr[36] = "OperationAnd";
-        tokenIdToStr[37] = "LogicAnd";
-        tokenIdToStr[38] = "LogicOr";
-        tokenIdToStr[39] = "LogicNot";
-        tokenIdToStr[40] = "AtributionEqual";
-        tokenIdToStr[41] = "RelationEqual";
-        tokenIdToStr[42] = "RelationNotEqual";
-        tokenIdToStr[43] = "RelationGreater";
-        tokenIdToStr[44] = "RelationLower";
-        tokenIdToStr[45] = "RelationGreaterEqual";
-        tokenIdToStr[46] = "RelationLowerEqual";
-        tokenIdToStr[47] = "ReservedReturn";
-        tokenIdToStr[48] = "CharConst";
-        tokenIdToStr[49] = "StringConst";
-        tokenIdToStr[50] = "DoubleConst";
-        tokenIdToStr[51] = "IntConst";
-        tokenIdToStr[52] = "BooleanConst";
-        tokenIdToStr[53] = "SignalDot";
-        tokenIdToStr[54] = "ReservedAppend";
+		tokenIdToStr[Token::Identificator] = "Identificator";
+		tokenIdToStr[Token::DefFunction] = "DefFunction";
+		tokenIdToStr[Token::ReservedMain] = "ReservedMain";
+		tokenIdToStr[Token::TypeVoid] = "TypeVoid";
+		tokenIdToStr[Token::TypeInteger] = "TypeInteger";
+		tokenIdToStr[Token::TypeDouble] = "TypeDouble";
+		tokenIdToStr[Token::TypeChar] = "TypeChar";
+		tokenIdToStr[Token::TypeBoolean] = "TypeBoolean";
+		tokenIdToStr[Token::TypeString] = "TypeString";
+		tokenIdToStr[Token::TypeList] = "TypeList";
+		tokenIdToStr[Token::OpenBrace] = "OpenBrace";
+		tokenIdToStr[Token::CloseBrace] = "CloseBrace";
+		tokenIdToStr[Token::OpenBrack] = "OpenBrack";
+		tokenIdToStr[Token::CloseBrack] = "CloseBrack";
+		tokenIdToStr[Token::OpenPar] = "OpenPar";
+		tokenIdToStr[Token::ClosePar] = "ClosePar";
+		tokenIdToStr[Token::EndLine] = "EndLine";
+		tokenIdToStr[Token::ReservedIf] = "ReservedIf";
+		tokenIdToStr[Token::ReservedElseIf] = "ReservedElseIf";
+		tokenIdToStr[Token::ReservedElse] = "ReservedElse";
+		tokenIdToStr[Token::ReservedFor] = "ReservedFor";
+		tokenIdToStr[Token::ReservedWhile] = "ReservedWhile";
+		tokenIdToStr[Token::ReservedWrite] = "ReservedWrite";
+		tokenIdToStr[Token::ReservedRead] = "ReservedRead";
+		tokenIdToStr[Token::SignalSemiColon] = "SignalSemiColon";
+		tokenIdToStr[Token::SignalComma] = "SignalComma";
+		tokenIdToStr[Token::OperationAdd] = "OperationAdd";
+		tokenIdToStr[Token::OperationSub] = "OperationSub";
+		tokenIdToStr[Token::OperationMult] = "OperationMult";
+		tokenIdToStr[Token::OperationDiv] = "OperationDiv";
+		tokenIdToStr[Token::OperationInc] = "OperationInc";
+		tokenIdToStr[Token::OperationDec] = "OperationDec";
+		tokenIdToStr[Token::OperationConc] = "OperationConc";
+		tokenIdToStr[Token::OperationNot] = "OperationNot";
+		tokenIdToStr[Token::OperationXor] = "OperationXor";
+		tokenIdToStr[Token::OperationOr] = "OperationOr";
+		tokenIdToStr[Token::OperationAnd] = "OperationAnd";
+		tokenIdToStr[Token::LogicAnd] = "LogicAnd";
+		tokenIdToStr[Token::LogicOr] = "LogicOr";
+		tokenIdToStr[Token::LogicNot] = "LogicNot";
+		tokenIdToStr[Token::AtributionEqual] = "AtributionEqual";
+		tokenIdToStr[Token::RelationEqual] = "RelationEqual";
+		tokenIdToStr[Token::RelationNotEqual] = "RelationNotEqual";
+		tokenIdToStr[Token::RelationGreater] = "RelationGreater";
+		tokenIdToStr[Token::RelationLower] = "RelationLower";
+		tokenIdToStr[Token::RelationGreaterEqual] = "RelationGreaterEqual";
+		tokenIdToStr[Token::RelationLowerEqual] = "RelationLowerEqual";
+		tokenIdToStr[Token::ReservedReturn] = "ReservedReturn";
+		tokenIdToStr[Token::CharConst] = "CharConst";
+		tokenIdToStr[Token::StringConst] = "StringConst";
+		tokenIdToStr[Token::DoubleConst] = "DoubleConst";
+		tokenIdToStr[Token::IntConst] = "IntConst";
+		tokenIdToStr[Token::BooleanConst] = "BooleanConst";
+		tokenIdToStr[Token::SignalDot] = "SignalDot";
+		tokenIdToStr[Token::ReservedAppend] = "ReservedAppend";
+        tokenIdToStr[Token::Unknown] = "Unknown";
     }
 
 public:
-    Token() {
+    TokenClassifier() {
         this->initTokens();
     }
 
-    int getTokenId(std::string token) {
-        return this->tokenId[token];
+    Token classify(std::string token) {
+        std::unordered_map<std::string, Token> reserved_words = {
+            {"str", Token::TypeString},
+            {"bool", Token::TypeBoolean},
+            {"dbl", Token::TypeDouble},
+            {"itg", Token::TypeInteger},
+            {"void", Token::TypeVoid},
+            {"list", Token::TypeList},
+            {"main", Token::ReservedMain},
+            {"function", Token::DefFunction},
+            {"if", Token::ReservedIf},
+            {"elseif", Token::ReservedElseIf},
+            {"else", Token::ReservedElse},
+            {"write", Token::ReservedWrite},
+            {"read", Token::ReservedRead}
+
+        };
+        Token tokenType = reserved_words[token];
+        if(!tokenType) {
+            return Token::Identificator;
+        }
+        return tokenType;
     }
 
-    std::string getToken(int tokenId) {
-        return this->tokenIdToStr[tokenId];
+    std::string getToken(Token token) {
+        return this->tokenIdToStr[token];
     }
 
 };
