@@ -80,8 +80,13 @@ public:
             {"elseif", Token::ReservedElseIf},
             {"else", Token::ReservedElse},
             {"write", Token::ReservedWrite},
-            {"read", Token::ReservedRead}
-
+            {"read", Token::ReservedRead},
+            {"for", Token::ReservedFor},
+            {"append", Token::ReservedAppend},
+            {"while", Token::ReservedWhile},
+            {"and", Token::LogicAnd},
+            {"or", Token::LogicOr},
+            {"not", Token::LogicNot}
         };
         Token tokenType = reserved_words[token];
         if(!tokenType) {

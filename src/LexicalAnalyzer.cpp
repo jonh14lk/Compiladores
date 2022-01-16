@@ -34,7 +34,7 @@ public:
         canBreakChar['+'] = Token::OperationAdd;
         canBreakChar['-'] = Token::OperationSub;
         canBreakChar['*'] = Token::OperationMult;
-        canBreakChar['/'] = Token::OperationSub;
+        canBreakChar['/'] = Token::OperationDiv;
         canBreakChar['>'] = Token::RelationGreater;
         canBreakChar['<'] = Token::RelationLower;
         canBreakChar['='] = Token::AtributionEqual;
@@ -43,12 +43,12 @@ public:
         canBreakChar['&'] = Token::OperationAnd;
 
         canBreakStr["++"] = Token::OperationInc;
-        canBreakStr["--"] = Token::OperationConc;
+        canBreakStr["--"] = Token::OperationDec;
+        canBreakStr["+="] = Token::OperationConc;
         canBreakStr["=="] = Token::RelationEqual;
         canBreakStr["!="] = Token::RelationNotEqual;
         canBreakStr[">="] = Token::RelationGreaterEqual;
         canBreakStr["<="] = Token::RelationLowerEqual;
-
     }
 
     bool hasToken() {
@@ -126,8 +126,7 @@ public:
         Token cur_token_id = Token::Identificator;
         while (column < currentLine.size() && currentLine[column] != '\t' && currentLine[column] != ' ') {
             if (cur_token.size() && canBreakChar[currentLine[column]]) {
-                cur_token_id = canBreakChar[currentLine[column]];
-                return make_pair(cur_token_id, cur_token);
+                break;
             } else if (cur_token.size() && canBreakStr[currentLine.substr(column, 2)]) {
                 cur_token_id = canBreakStr[currentLine.substr(column, 2)];
                 return make_pair(cur_token_id, cur_token);
@@ -140,7 +139,7 @@ public:
 
             cur_token += currentLine[column];
             column++;
-            std::cout << "cur_token: " << cur_token << std::endl;
+            
             if (currentLine[column - 1] == '\'') {
                 return readCharConst();
             } else if (currentLine[column - 1] == '\"'){
@@ -148,15 +147,18 @@ public:
             } else if (canBreakStr[currentLine.substr(column - 1, 2)]) {
                 cur_token += currentLine[column];
                 column++;
-                cur_token_id = canBreakStr[currentLine.substr(column, 2)];
-                return make_pair(cur_token_id, cur_token);
+                break;
             } else if (canBreakChar[currentLine[column - 1]]) {
-                cur_token_id = canBreakChar[currentLine[column - 1]];
-                return make_pair(cur_token_id, cur_token);
+                break;
             }
         }
-        printf("cur_token: %s\n", cur_token);
-        return make_pair(tokenClassifier.classify(cur_token), cur_token);
+        Token result_token = Token::Unknown;
+        if(cur_token.length() == 1 && canBreakChar[cur_token[0]]) {
+            result_token = canBreakChar[cur_token[0]];
+        } else if(canBreakStr[cur_token]){
+            result_token = canBreakStr[cur_token];
+        }
+        return make_pair(result_token != Token::Unknown ? result_token : tokenClassifier.classify(cur_token), cur_token);
     }
 
     void printToken(std::pair<Token, std::string> cur_token) {
