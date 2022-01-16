@@ -1,6 +1,6 @@
 #include <unordered_map>
 #include "token.cpp"
-#include "tokens.cpp"
+#include "tokens_classifier.cpp"
 
 #define DEBUG(msg) std::cout << msg << std::endl;
 
