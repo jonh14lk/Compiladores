@@ -54,5 +54,6 @@ enum Token {
 	BooleanConst,
 	SignalDot,
 	ReservedAppend,
-	Unknown
+	Unknown,
+	qntTokens
 };
