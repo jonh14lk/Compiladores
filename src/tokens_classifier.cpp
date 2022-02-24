@@ -1,6 +1,6 @@
 class TokenClassifier {
 private:
-    std::unordered_map<int, std::string> tokenIdToStr;
+    std::string tokenIdToStr[Token::qntTokens];
 
     void initTokens() {
 		tokenIdToStr[Token::Identificator] = "Identificator";

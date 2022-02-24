@@ -30,7 +30,6 @@ function void main {} [
     ]
     shellsort{n, l};
     for {i = 0; i < n; i++} [
-        write{l(i)};
-        write{" "};
+        write{l(i), " "};
     ]
 ]
