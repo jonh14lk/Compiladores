@@ -162,7 +162,7 @@ public:
     }
 
     void printToken(std::pair<Token, std::string> cur_token) {
-        printf("        [%4d, %4d] (%4d, %20s) {%s}\n", 
+        printf("              [%04d, %04d] (%04d, %20s) {%s}\n", 
             line, initial_col, 
             cur_token.first, tokenClassifier.getToken(cur_token.first).c_str(), 
             cur_token.second.c_str());
