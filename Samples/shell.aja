@@ -23,13 +23,13 @@ function void main {} [
     itg n;
     read{n};
     list (itg) l;
-    for {i = 0; i < n; i++} [
+    for {i, 0, n, 1} [
         itg x;
         read{x};
         l.append{x};
     ]
     shellsort{n, l};
-    for {i = 0; i < n; i++} [
+    for {i, 0, n}  [
         write{l(i), " "};
     ]
 ]

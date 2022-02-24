@@ -4,16 +4,17 @@ function void main {} [
     itg a = 0;
     itg b = 1;
     if {n >= 1} [
-        write{a};
+        write{a, " "};
     ]
     if {n >= 2} [
-        write{b};
+        write{b, " "};
     ]
     while {n >= 3} [
         itg x = a + b;
         a = b;
         b = x;
-        write{b};
+        write{x, " "};
         n--;
     ]
-]
+    write{"\n"};
+] 
