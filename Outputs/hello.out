@@ -1,21 +1,23 @@
-0001  function void main {} [
-        [0001, 0001] (0001,          DefFunction) {function}
-        [0001, 0010] (0003,             TypeVoid) {void}
-        [0001, 0015] (0002,         ReservedMain) {main}
-        [0001, 0020] (0010,            OpenBrace) {{}
-        [0001, 0021] (0011,           CloseBrace) {}}
-        [0001, 0023] (0012,            OpenBrack) {[}
-0002      str msg = "hello world";
-        [0002, 0005] (0008,           TypeString) {str}
-        [0002, 0009] (0000,        Identificator) {msg}
-        [0002, 0013] (0040,      AtributionEqual) {=}
-        [0002, 0015] (0049,          StringConst) {"hello world"}
-        [0002, 0028] (0024,      SignalSemiColon) {;}
-0003      write{msg};
-        [0003, 0005] (0022,        ReservedWrite) {write}
-        [0003, 0010] (0010,            OpenBrace) {{}
-        [0003, 0011] (0000,        Identificator) {msg}
-        [0003, 0014] (0011,           CloseBrace) {}}
-        [0003, 0015] (0024,      SignalSemiColon) {;}
-0004  ]
-        [0004, 0001] (0013,           CloseBrack) {]}
+   1  function void main {} [
+              [0001, 0001] (0001,          DefFunction) {function}
+              [0001, 0010] (0003,             TypeVoid) {void}
+              [0001, 0015] (0002,         ReservedMain) {main}
+              [0001, 0020] (0010,            OpenBrace) {{}
+              [0001, 0021] (0011,           CloseBrace) {}}
+              [0001, 0023] (0012,            OpenBrack) {[}
+   2      str msg = "hello world";
+              [0002, 0005] (0008,           TypeString) {str}
+              [0002, 0009] (0000,        Identificator) {msg}
+              [0002, 0013] (0040,      AtributionEqual) {=}
+              [0002, 0015] (0049,          StringConst) {"hello world"}
+              [0002, 0028] (0024,      SignalSemiColon) {;}
+   3      write{msg, "\n"};
+              [0003, 0005] (0022,        ReservedWrite) {write}
+              [0003, 0010] (0010,            OpenBrace) {{}
+              [0003, 0011] (0000,        Identificator) {msg}
+              [0003, 0014] (0025,          SignalComma) {,}
+              [0003, 0016] (0049,          StringConst) {"\n"}
+              [0003, 0020] (0011,           CloseBrace) {}}
+              [0003, 0021] (0024,      SignalSemiColon) {;}
+   4  ]
+              [0004, 0001] (0013,           CloseBrack) {]}
