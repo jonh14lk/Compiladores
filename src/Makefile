@@ -2,13 +2,13 @@ make:
 	g++ main.cpp -o analyzer
 
 hello-outfile:
-	./analyzer ../Samples/hello.aja > ../Outputs/hello.out
+	./analyzer ../Samples/hello.aja > ../Results/hello.out
 
 fib-outfile:
-	./analyzer ../Samples/fib.aja > ../Outputs/fib.out
+	./analyzer ../Samples/fib.aja > ../Results/fib.out
 
 shell-outfile:
-	./analyzer ../Samples/shell.aja > ../Outputs/shell.out
+	./analyzer ../Samples/shell.aja > ../Results/shell.out
 
 hello:
 	./analyzer ../Samples/hello.aja

@@ -15,9 +15,4 @@ int main (int argc, char *argv[]) {
     
     std::string filePath = std::string(argv[1]);
     SyntacticAnalyzer analyzer(filePath);
-    
-    /*while(analyzer.hasToken()) {
-        std::pair<Token, std::string> t = analyzer.nxtToken();
-        analyzer.printToken(t);
-    }*/
 }

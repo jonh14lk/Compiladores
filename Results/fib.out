@@ -1,0 +1,400 @@
+   1  function void main {} [
+          S = FunctionDeclaration S
+          FunctionDeclaration = 'function' FunctionDeclarationAuxiliar
+              [0001, 0001] (0001,          DefFunction) {function}
+          FunctionDeclarationAuxiliar = VoidFunction
+          VoidFunction = 'void' VoidFunctionAuxiliar
+              [0001, 0010] (0003,             TypeVoid) {void}
+          VoidFunctionAuxiliar = MainFunction
+          MainFunction = 'main' '{' '}' '[' CommandsBlock ']'
+              [0001, 0015] (0002,         ReservedMain) {main}
+              [0001, 0020] (0010,            OpenBrace) {{}
+              [0001, 0021] (0011,           CloseBrace) {}}
+              [0001, 0023] (0012,            OpenBrack) {[}
+   2      itg n;
+          CommandsBlock = Command CommandsBlock
+          Command = DeclarationCommand ';'
+          DeclarationCommand = VariableDeclaration DeclarationCommandAuxiliar
+          VariableDeclaration = Type 'Identificator'
+              [0002, 0005] (0004,          TypeInteger) {itg}
+              [0002, 0009] (0000,        Identificator) {n}
+          DeclarationCommandAuxiliar = épsilon
+              [0002, 0010] (0024,      SignalSemiColon) {;}
+   3      read{n};
+          CommandsBlock = Command CommandsBlock
+          Input = 'read' '{' IdList '}'
+              [0003, 0005] (0023,         ReservedRead) {read}
+              [0003, 0009] (0010,            OpenBrace) {{}
+          IdSequence = 'Identificator' IdSequenceAuxiliar
+              [0003, 0010] (0000,        Identificator) {n}
+          IdSequenceAuxiliar = épsilon
+              [0003, 0011] (0011,           CloseBrace) {}}
+              [0003, 0012] (0024,      SignalSemiColon) {;}
+   4      itg a = 0;
+          CommandsBlock = Command CommandsBlock
+          Command = DeclarationCommand ';'
+          DeclarationCommand = VariableDeclaration DeclarationCommandAuxiliar
+          VariableDeclaration = Type 'Identificator'
+              [0004, 0005] (0004,          TypeInteger) {itg}
+              [0004, 0009] (0000,        Identificator) {a}
+          DeclarationCommandAuxiliar = AttributionExpression
+          AttributionExpression = '=' ArithmeticExpression
+              [0004, 0011] (0040,      AtributionEqual) {=}
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0004, 0013] (0051,             IntConst) {0}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+              [0004, 0014] (0024,      SignalSemiColon) {;}
+   5      itg b = 1;
+          CommandsBlock = Command CommandsBlock
+          Command = DeclarationCommand ';'
+          DeclarationCommand = VariableDeclaration DeclarationCommandAuxiliar
+          VariableDeclaration = Type 'Identificator'
+              [0005, 0005] (0004,          TypeInteger) {itg}
+              [0005, 0009] (0000,        Identificator) {b}
+          DeclarationCommandAuxiliar = AttributionExpression
+          AttributionExpression = '=' ArithmeticExpression
+              [0005, 0011] (0040,      AtributionEqual) {=}
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0005, 0013] (0051,             IntConst) {1}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+              [0005, 0014] (0024,      SignalSemiColon) {;}
+   6      if {n >= 1} [
+          CommandsBlock = Command CommandsBlock
+          Condition = IfCommand ConditionAuxiliar
+          IfCommand = 'if' '{' BooleanExpression  '}' '[' CommandsBlock  ']'
+              [0006, 0005] (0017,           ReservedIf) {if}
+              [0006, 0008] (0010,            OpenBrace) {{}
+          BooleanExpression = BooleanTerm BooleanAuxiliar
+          BooleanTerm = BooleanFactor BooleanAuxiliarTerm
+          BooleanFactor = BooleanRelation
+          BooleanRelation = ArithmeticExpression BooleanRelationAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0006, 0009] (0000,        Identificator) {n}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          BooleanRelationAuxiliar = LogicalRelation ArithmeticExpression
+              [0006, 0011] (0045, RelationGreaterEqual) {>=}
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0006, 0014] (0051,             IntConst) {1}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          BooleanAuxiliarTerm = épsilon
+          BooleanAuxiliar = épsilon
+              [0006, 0015] (0011,           CloseBrace) {}}
+              [0006, 0017] (0012,            OpenBrack) {[}
+   7          write{a, " "};
+          CommandsBlock = Command CommandsBlock
+          Output = 'write' '{' OutputValues '}'
+              [0007, 0009] (0022,        ReservedWrite) {write}
+              [0007, 0014] (0010,            OpenBrace) {{}
+          OutputValues = Value OutputValuesAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0007, 0015] (0000,        Identificator) {a}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          OutputValuesAuxiliar = OutputValues
+          OutputValues = Value OutputValuesAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0007, 0018] (0049,          StringConst) {" "}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          OutputValuesAuxiliar = épsilon
+              [0007, 0021] (0011,           CloseBrace) {}}
+              [0007, 0022] (0024,      SignalSemiColon) {;}
+   8      ]
+          CommandsBlock = épsilon
+              [0008, 0005] (0013,           CloseBrack) {]}
+   9      if {n >= 2} [
+          ConditionAuxiliar = épsilon
+          CommandsBlock = Command CommandsBlock
+          Condition = IfCommand ConditionAuxiliar
+          IfCommand = 'if' '{' BooleanExpression  '}' '[' CommandsBlock  ']'
+              [0009, 0005] (0017,           ReservedIf) {if}
+              [0009, 0008] (0010,            OpenBrace) {{}
+          BooleanExpression = BooleanTerm BooleanAuxiliar
+          BooleanTerm = BooleanFactor BooleanAuxiliarTerm
+          BooleanFactor = BooleanRelation
+          BooleanRelation = ArithmeticExpression BooleanRelationAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0009, 0009] (0000,        Identificator) {n}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          BooleanRelationAuxiliar = LogicalRelation ArithmeticExpression
+              [0009, 0011] (0045, RelationGreaterEqual) {>=}
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0009, 0014] (0051,             IntConst) {2}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          BooleanAuxiliarTerm = épsilon
+          BooleanAuxiliar = épsilon
+              [0009, 0015] (0011,           CloseBrace) {}}
+              [0009, 0017] (0012,            OpenBrack) {[}
+  10          write{b, " "};
+          CommandsBlock = Command CommandsBlock
+          Output = 'write' '{' OutputValues '}'
+              [0010, 0009] (0022,        ReservedWrite) {write}
+              [0010, 0014] (0010,            OpenBrace) {{}
+          OutputValues = Value OutputValuesAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0010, 0015] (0000,        Identificator) {b}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          OutputValuesAuxiliar = OutputValues
+          OutputValues = Value OutputValuesAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0010, 0018] (0049,          StringConst) {" "}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          OutputValuesAuxiliar = épsilon
+              [0010, 0021] (0011,           CloseBrace) {}}
+              [0010, 0022] (0024,      SignalSemiColon) {;}
+  11      ]
+          CommandsBlock = épsilon
+              [0011, 0005] (0013,           CloseBrack) {]}
+  12      while {n >= 3} [
+          ConditionAuxiliar = épsilon
+          CommandsBlock = Command CommandsBlock
+          Loop = WhileStatement
+          WhileStatement = 'while' '{' BooleanExpression '}' '[' CommandsBlock ']'
+              [0012, 0005] (0021,        ReservedWhile) {while}
+              [0012, 0011] (0010,            OpenBrace) {{}
+          BooleanExpression = BooleanTerm BooleanAuxiliar
+          BooleanTerm = BooleanFactor BooleanAuxiliarTerm
+          BooleanFactor = BooleanRelation
+          BooleanRelation = ArithmeticExpression BooleanRelationAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0012, 0012] (0000,        Identificator) {n}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          BooleanRelationAuxiliar = LogicalRelation ArithmeticExpression
+              [0012, 0014] (0045, RelationGreaterEqual) {>=}
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0012, 0017] (0051,             IntConst) {3}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          BooleanAuxiliarTerm = épsilon
+          BooleanAuxiliar = épsilon
+              [0012, 0018] (0011,           CloseBrace) {}}
+              [0012, 0020] (0012,            OpenBrack) {[}
+  13          itg x = a + b;
+          CommandsBlock = Command CommandsBlock
+          Command = DeclarationCommand ';'
+          DeclarationCommand = VariableDeclaration DeclarationCommandAuxiliar
+          VariableDeclaration = Type 'Identificator'
+              [0013, 0009] (0004,          TypeInteger) {itg}
+              [0013, 0013] (0000,        Identificator) {x}
+          DeclarationCommandAuxiliar = AttributionExpression
+          AttributionExpression = '=' ArithmeticExpression
+              [0013, 0015] (0040,      AtributionEqual) {=}
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0013, 0017] (0000,        Identificator) {a}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = AddtiveOperation MultiplicativeExpression AddtiveAuxiliar
+              [0013, 0019] (0026,         OperationAdd) {+}
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0013, 0021] (0000,        Identificator) {b}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+              [0013, 0022] (0024,      SignalSemiColon) {;}
+  14          a = b;
+          CommandsBlock = Command CommandsBlock
+          IdentificatorCommand = 'Identificator' IdentificatorCommandAuxiliar
+              [0014, 0009] (0000,        Identificator) {a}
+          IdentificatorCommandAuxiliar = AttributionExpression
+          AttributionExpression = '=' ArithmeticExpression
+              [0014, 0011] (0040,      AtributionEqual) {=}
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0014, 0013] (0000,        Identificator) {b}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+              [0014, 0014] (0024,      SignalSemiColon) {;}
+  15          b = x;
+          CommandsBlock = Command CommandsBlock
+          IdentificatorCommand = 'Identificator' IdentificatorCommandAuxiliar
+              [0015, 0009] (0000,        Identificator) {b}
+          IdentificatorCommandAuxiliar = AttributionExpression
+          AttributionExpression = '=' ArithmeticExpression
+              [0015, 0011] (0040,      AtributionEqual) {=}
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0015, 0013] (0000,        Identificator) {x}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+              [0015, 0014] (0024,      SignalSemiColon) {;}
+  16          write{x, " "};
+          CommandsBlock = Command CommandsBlock
+          Output = 'write' '{' OutputValues '}'
+              [0016, 0009] (0022,        ReservedWrite) {write}
+              [0016, 0014] (0010,            OpenBrace) {{}
+          OutputValues = Value OutputValuesAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0016, 0015] (0000,        Identificator) {x}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          OutputValuesAuxiliar = OutputValues
+          OutputValues = Value OutputValuesAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0016, 0018] (0049,          StringConst) {" "}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          OutputValuesAuxiliar = épsilon
+              [0016, 0021] (0011,           CloseBrace) {}}
+              [0016, 0022] (0024,      SignalSemiColon) {;}
+  17          n--;
+          CommandsBlock = Command CommandsBlock
+          IdentificatorCommand = 'Identificator' IdentificatorCommandAuxiliar
+              [0017, 0009] (0000,        Identificator) {n}
+              [0017, 0010] (0031,         OperationDec) {--}
+              [0017, 0012] (0024,      SignalSemiColon) {;}
+  18      ]
+          CommandsBlock = épsilon
+              [0018, 0005] (0013,           CloseBrack) {]}
+  19      write{"\n"};
+          CommandsBlock = Command CommandsBlock
+          Output = 'write' '{' OutputValues '}'
+              [0019, 0005] (0022,        ReservedWrite) {write}
+              [0019, 0010] (0010,            OpenBrace) {{}
+          OutputValues = Value OutputValuesAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0019, 0011] (0049,          StringConst) {"\n"}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          OutputValuesAuxiliar = épsilon
+              [0019, 0015] (0011,           CloseBrace) {}}
+              [0019, 0016] (0024,      SignalSemiColon) {;}
+  20  ] 
+          CommandsBlock = épsilon
+              [0020, 0001] (0013,           CloseBrack) {]}
+          S = épsilon

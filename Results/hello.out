@@ -1,0 +1,71 @@
+   1  function void main {} [
+          S = FunctionDeclaration S
+          FunctionDeclaration = 'function' FunctionDeclarationAuxiliar
+              [0001, 0001] (0001,          DefFunction) {function}
+          FunctionDeclarationAuxiliar = VoidFunction
+          VoidFunction = 'void' VoidFunctionAuxiliar
+              [0001, 0010] (0003,             TypeVoid) {void}
+          VoidFunctionAuxiliar = MainFunction
+          MainFunction = 'main' '{' '}' '[' CommandsBlock ']'
+              [0001, 0015] (0002,         ReservedMain) {main}
+              [0001, 0020] (0010,            OpenBrace) {{}
+              [0001, 0021] (0011,           CloseBrace) {}}
+              [0001, 0023] (0012,            OpenBrack) {[}
+   2      str msg = "hello world";
+          CommandsBlock = Command CommandsBlock
+          Command = DeclarationCommand ';'
+          DeclarationCommand = VariableDeclaration DeclarationCommandAuxiliar
+          VariableDeclaration = Type 'Identificator'
+              [0002, 0005] (0008,           TypeString) {str}
+              [0002, 0009] (0000,        Identificator) {msg}
+          DeclarationCommandAuxiliar = AttributionExpression
+          AttributionExpression = '=' ArithmeticExpression
+              [0002, 0013] (0040,      AtributionEqual) {=}
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0002, 0015] (0049,          StringConst) {"hello world"}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+              [0002, 0028] (0024,      SignalSemiColon) {;}
+   3      write{msg, "\n"};
+          CommandsBlock = Command CommandsBlock
+          Output = 'write' '{' OutputValues '}'
+              [0003, 0005] (0022,        ReservedWrite) {write}
+              [0003, 0010] (0010,            OpenBrace) {{}
+          OutputValues = Value OutputValuesAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = IdentificatorFactor
+          IdentificatorFactor = 'Identificator' IdentificatorFactorAuxiliar
+              [0003, 0011] (0000,        Identificator) {msg}
+          IdentificatorFactorAuxiliar = épsilon
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          OutputValuesAuxiliar = OutputValues
+          OutputValues = Value OutputValuesAuxiliar
+          ArithmeticExpression = AddtiveExpression ArithmeticAuxiliar
+          AddtiveExpression = MultiplicativeExpression AddtiveAuxiliar
+          MultiplicativeExpression = ArithmeticValue MultiplicativeAuxiliar
+          ArithmeticValue = ArithmeticFactor ArithmeticValueAuxiliar
+          ArithmeticFactor = Constant
+              [0003, 0016] (0049,          StringConst) {"\n"}
+          ArithmeticValueAuxiliar = épsilon
+          MultiplicativeAuxiliar = épsilon
+          AddtiveAuxiliar = épsilon
+          ArithmeticAuxiliar = épsilon
+          OutputValuesAuxiliar = épsilon
+              [0003, 0020] (0011,           CloseBrace) {}}
+              [0003, 0021] (0024,      SignalSemiColon) {;}
+   4  ]
+          CommandsBlock = épsilon
+              [0004, 0001] (0013,           CloseBrack) {]}
+          S = épsilon

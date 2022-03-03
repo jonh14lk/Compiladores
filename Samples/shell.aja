@@ -4,7 +4,8 @@ function void shellsort {itg n, list (itg) l} [
     	h = h * 3 + 1;
     ]
     h = h / 3;
-    itg temp, j;
+    itg temp;
+    itg j;
     while {h > 0} [
     	for {i = h; i < n; i++} [
         	temp = l(i);
