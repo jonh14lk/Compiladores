@@ -13,6 +13,7 @@ private:
     TokenClassifier tokenClassifier;
     int line, column, initial_col;
 public: 
+    LexicalAnalyzer() {}
     LexicalAnalyzer(std::string filePath) {
         file = std::ifstream(filePath);
         tokenClassifier = TokenClassifier();

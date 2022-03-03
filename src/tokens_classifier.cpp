@@ -86,7 +86,8 @@ public:
             {"while", Token::ReservedWhile},
             {"and", Token::LogicAnd},
             {"or", Token::LogicOr},
-            {"not", Token::LogicNot}
+            {"not", Token::LogicNot},
+			{"return", Token::ReservedReturn}
         };
         Token tokenType = reserved_words[token];
         if(!tokenType) {

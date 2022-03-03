@@ -4,7 +4,7 @@
 #include <cstring>
 #include <map>
 
-#include "LexicalAnalyzer.cpp"
+#include "SyntacticAnalyzer.cpp"
 
 
 int main (int argc, char *argv[]) {
@@ -14,10 +14,5 @@ int main (int argc, char *argv[]) {
     }
     
     std::string filePath = std::string(argv[1]);
-    LexicalAnalyzer analyzer(filePath);
-    
-    while(analyzer.hasToken()) {
-        std::pair<Token, std::string> t = analyzer.nxtToken();
-        analyzer.printToken(t);
-    }
+    SyntacticAnalyzer analyzer(filePath);
 }
